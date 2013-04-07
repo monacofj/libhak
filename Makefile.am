@@ -1,4 +1,4 @@
-SUBDIRS = lib src test
+SUBDIRS = lib src test doc
 ACLOCAL_AMFLAGS = -I m4
 
 export CUSTOM_GARBAGE = *~ \#* *.o
@@ -6,3 +6,4 @@ export CUSTOM_GARBAGE = *~ \#* *.o
 	make -C src  clean-garbage
 	make -C test clean-garbage
 	make -C lib  clean-garbage
+	make -C doc  clean-garbage
