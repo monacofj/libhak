@@ -31,7 +31,7 @@ BUILD_PDF = make -C $(top_srcdir)/doc/latex
 
 doxyfile.stamp: Doxyfile.in
 	$(DOXYGEN) Doxyfile
-#	$(BUILD_PDF)
+	$(BUILD_PDF)
 	echo Timestamp > doxyfile.stamp
 
 
