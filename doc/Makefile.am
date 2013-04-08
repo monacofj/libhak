@@ -17,9 +17,9 @@ if HAVE_DOXYGEN
 # TODO: make distcheck is failing. 
 #
 PDF_DIR = $(top_srcdir)/doc/latex
+BUILD_PDF = make -C $(PDF_DIR)
 dist_doc_DATA = $(PDF_DIR)/refman.pdf
 $(PDF_DIR)/refman.pdf : doxyfile.stamp 
-BUILD_PDF = make -C $(top_srcdir)/doc/latex
 
 
 # This is the rule to build the documentation source file from the source code.
@@ -29,7 +29,7 @@ BUILD_PDF = make -C $(top_srcdir)/doc/latex
 # artifice here: doxyfile.stamp is the one file representing the whole of the
 # documentation source files.
 
-doxyfile.stamp: Doxyfile.in
+doxyfile.stamp: Doxyfile.in 
 	$(DOXYGEN) Doxyfile
 	$(BUILD_PDF)
 	echo Timestamp > doxyfile.stamp

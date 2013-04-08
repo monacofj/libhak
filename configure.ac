@@ -21,5 +21,5 @@ AM_CONDITIONAL([HAVE_DOXYGEN],
 # Test
 
 
-AC_CONFIG_FILES([ Makefile lib/Makefile test/Makefile src/Makefile doc/Makefile])
+AC_CONFIG_FILES([Makefile lib/Makefile test/Makefile src/Makefile doc/Makefile])
 AC_OUTPUT

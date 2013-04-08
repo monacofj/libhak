@@ -202,8 +202,8 @@ top_srcdir = @top_srcdir@
 # TODO: make distcheck is failing. 
 #
 @HAVE_DOXYGEN_TRUE@PDF_DIR = $(top_srcdir)/doc/latex
+@HAVE_DOXYGEN_TRUE@BUILD_PDF = make -C $(PDF_DIR)
 @HAVE_DOXYGEN_TRUE@dist_doc_DATA = $(PDF_DIR)/refman.pdf
-@HAVE_DOXYGEN_TRUE@BUILD_PDF = make -C $(top_srcdir)/doc/latex
 @HAVE_DOXYGEN_TRUE@CLEANFILES = doxyfile.stamp
 all: all-am
 
@@ -428,9 +428,9 @@ uninstall-am: uninstall-dist_docDATA
 # artifice here: doxyfile.stamp is the one file representing the whole of the
 # documentation source files.
 
-@HAVE_DOXYGEN_TRUE@doxyfile.stamp: Doxyfile.in
+@HAVE_DOXYGEN_TRUE@doxyfile.stamp: Doxyfile.in 
 @HAVE_DOXYGEN_TRUE@	$(DOXYGEN) Doxyfile
-#	$(BUILD_PDF)
+@HAVE_DOXYGEN_TRUE@	$(BUILD_PDF)
 @HAVE_DOXYGEN_TRUE@	echo Timestamp > doxyfile.stamp
 
 @HAVE_DOXYGEN_TRUE@all-local: doxyfile.stamp 
