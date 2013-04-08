@@ -1,2 +1,6 @@
+## Git shouls ignore these files
+
 *~
 \#*
+.\#*
+autom4te.cache
