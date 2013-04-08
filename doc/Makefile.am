@@ -16,10 +16,11 @@ if HAVE_DOXYGEN
 #
 # TODO: make distcheck is failing. 
 #
-PDF_DIR = $(top_srcdir)/doc/latex      # this works in normal build but fails with VPATH
+PDF_DIR = $(top_srcdir)/doc/latex
 BUILD_PDF = make -C $(PDF_DIR)
 dist_doc_DATA = $(PDF_DIR)/refman.pdf
 $(PDF_DIR)/refman.pdf : doxyfile.stamp 
+
 
 
 # This is the rule to build the documentation source file from the source code.
