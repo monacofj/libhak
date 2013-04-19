@@ -1,4 +1,5 @@
-SUBDIRS = lib src test doc
+# Temporary removed doc dir (fix doc/Makefile.am to build pdf only upon make install or make dist(check)
+SUBDIRS = lib src test 
 ACLOCAL_AMFLAGS = -I m4
 
 export CUSTOM_GARBAGE = *~ \#* *.o

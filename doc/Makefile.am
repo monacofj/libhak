@@ -3,8 +3,6 @@
 
 if HAVE_DOXYGEN		
 
-
-
 # Original files.
 #
 # directory = $(top_srcdir)/doc/man/man3/
@@ -30,6 +28,8 @@ $(PDF_DIR)/refman.pdf : doxyfile.stamp
 # artifice here: doxyfile.stamp is the one file representing the whole of the
 # documentation source files.
 
+
+
 doxyfile.stamp: Doxyfile.in 
 	$(DOXYGEN) Doxyfile
 	$(BUILD_PDF)
@@ -38,7 +38,8 @@ doxyfile.stamp: Doxyfile.in
 
 CLEANFILES = doxyfile.stamp
 
-all-local: doxyfile.stamp 
+
+install-data-local: doxyfile.stamp 
 
 
 .PHONY clean-garbage:
@@ -48,4 +49,7 @@ all-local: doxyfile.stamp
 clean-local:
 	rm -rf $(top_srcdir)/doc/latex
 	rm -rf $(top_srcdir)/doc/man
+
+
+
 endif

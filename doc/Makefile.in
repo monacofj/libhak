@@ -305,8 +305,7 @@ distdir: $(DISTFILES)
 	done
 check-am: all-am
 check: check-am
-@HAVE_DOXYGEN_FALSE@all-local:
-all-am: Makefile $(DATA) all-local
+all-am: Makefile $(DATA)
 installdirs:
 	for dir in "$(DESTDIR)$(docdir)"; do \
 	  test -z "$$dir" || $(MKDIR_P) "$$dir"; \
@@ -337,6 +336,7 @@ distclean-generic:
 maintainer-clean-generic:
 	@echo "This command is intended for maintainers to use"
 	@echo "it deletes files that may require special tools to rebuild."
+@HAVE_DOXYGEN_FALSE@install-data-local:
 @HAVE_DOXYGEN_FALSE@clean-local:
 clean: clean-am
 
@@ -358,7 +358,7 @@ info: info-am
 
 info-am:
 
-install-data-am: install-dist_docDATA
+install-data-am: install-data-local install-dist_docDATA
 
 install-dvi: install-dvi-am
 
@@ -406,10 +406,10 @@ uninstall-am: uninstall-dist_docDATA
 
 .MAKE: install-am install-strip
 
-.PHONY: all all-am all-local check check-am clean clean-generic \
-	clean-libtool clean-local distclean distclean-generic \
-	distclean-libtool distdir dvi dvi-am html html-am info info-am \
-	install install-am install-data install-data-am \
+.PHONY: all all-am check check-am clean clean-generic clean-libtool \
+	clean-local distclean distclean-generic distclean-libtool \
+	distdir dvi dvi-am html html-am info info-am install \
+	install-am install-data install-data-am install-data-local \
 	install-dist_docDATA install-dvi install-dvi-am install-exec \
 	install-exec-am install-html install-html-am install-info \
 	install-info-am install-man install-pdf install-pdf-am \
@@ -433,7 +433,7 @@ uninstall-am: uninstall-dist_docDATA
 @HAVE_DOXYGEN_TRUE@	$(BUILD_PDF)
 @HAVE_DOXYGEN_TRUE@	echo Timestamp > doxyfile.stamp
 
-@HAVE_DOXYGEN_TRUE@all-local: doxyfile.stamp 
+@HAVE_DOXYGEN_TRUE@install-data-local: doxyfile.stamp 
 
 @HAVE_DOXYGEN_TRUE@.PHONY clean-garbage:
 @HAVE_DOXYGEN_TRUE@	rm -rf $(CUSTOM_GARBAGE)
