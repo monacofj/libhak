@@ -5,7 +5,11 @@
 
 /** @brief: Libhack information */
 
+#include <stdio.h>
+#include <config.h>
+
 int main (void)
 {
+  printf ("%s\n", PACKAGE_STRING);
   return 0;
 }
