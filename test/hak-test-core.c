@@ -1,4 +1,4 @@
-#include "say.h"
+#include <say.h>
 
 int main (void)
 {
