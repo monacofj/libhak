@@ -16,7 +16,7 @@
 AM_CFLAGS = -Wall -std=c99 --pedantic
 AM_CPPFLAGS = -Wall -std=c99 --pedantic
 lib_LTLIBRARIES = libhak.la
-libhak_la_SOURCES = say.c say.h
+libhak_la_SOURCES = core.c core.h
 libhak_la_LDFLAGS = -version-info 0:0:0
 include_HEADERS = libhak.h
 
