@@ -220,7 +220,7 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 
 # Temporary removed doc dir (fix doc/Makefile.am to build pdf only upon make install or make dist(check)
-SUBDIRS = lib src test doc
+SUBDIRS = lib src test 
 ACLOCAL_AMFLAGS = -I m4
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-recursive

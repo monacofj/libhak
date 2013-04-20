@@ -4,3 +4,16 @@
 \#*
 .\#*
 autom4te.cache
+
+# Object files
+*.o
+
+# Libraries
+*.lib
+*.a
+*.so
+*.so.*
+*.la
+
+# newsource
+.newsource
