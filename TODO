@@ -1,8 +1,14 @@
 # ToDo List
 #
-# Once something is fixes, please remove the corresponding entry.
+# Once something is fixed, please remove the corresponding entry.
 
-2013-03-17 - Monaco
 
-	   * Distcheck is not working; no clue.
+2013-04-20 - Monaco
+	   
+	   * Distcheck was not workinb because of buggy documentation building systems
+	   * Disabled documentation building: create configure option --no-doc
+
+2013-04-21 - Monaco
+	   
+	   * For now, some ad hoc test programns in test/. A proper test suit would be nice.
 
