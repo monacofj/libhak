@@ -19,9 +19,12 @@
 
 */
 
+#define HAK_SYSFATAL HAK_FALSE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <libhak.h>
+
 
 int main (int argc, char **argv)
 {
@@ -33,6 +36,10 @@ int main (int argc, char **argv)
     printf ("argv[%d]: %s\n", i, hak_engine.argv[i]);
 
   printf ("Program name: %s\n", hak_engine.program_name);
+
+  hak_syserror(1);
+
+  printf ("I'm here.\n");
   
   return EXIT_SUCCESS;
 }
