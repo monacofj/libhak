@@ -228,7 +228,7 @@ AM_CPPFLAGS = -Wall -std=c99 --pedantic
 lib_LTLIBRARIES = libhak.la
 libhak_la_SOURCES = hak_core.c  
 libhak_la_LDFLAGS = -version-info 0:0:0
-include_HEADERS = libhak.h
+include_HEADERS = libhak.h 
 all: all-am
 
 .SUFFIXES:

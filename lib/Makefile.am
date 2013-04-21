@@ -13,12 +13,13 @@
 #broken old interface (e.g. removed functions) 	CURRENT+1 : 0 : 0
 
 
+
 AM_CFLAGS = -Wall -std=c99 --pedantic
 AM_CPPFLAGS = -Wall -std=c99 --pedantic
 lib_LTLIBRARIES = libhak.la
 libhak_la_SOURCES = hak_core.c  
 libhak_la_LDFLAGS = -version-info 0:0:0
-include_HEADERS = libhak.h
+include_HEADERS = libhak.h 
 
 .PHONY clean-garbage:
 	rm -rf $(CUSTOM_GARBAGE)
