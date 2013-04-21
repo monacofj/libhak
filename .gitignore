@@ -17,3 +17,6 @@ autom4te.cache
 
 # newsource
 .newsource
+
+# Git
+config.site
