@@ -34,7 +34,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-noinst_PROGRAMS = hak-test-core$(EXEEXT)
+noinst_PROGRAMS = test-core$(EXEEXT)
 subdir = test
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -49,9 +49,9 @@ CONFIG_HEADER = $(top_builddir)/config.h
 CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 PROGRAMS = $(noinst_PROGRAMS)
-am_hak_test_core_OBJECTS = hak-test-core.$(OBJEXT)
-hak_test_core_OBJECTS = $(am_hak_test_core_OBJECTS)
-hak_test_core_DEPENDENCIES = ../lib/libhak.la
+am_test_core_OBJECTS = test-core.$(OBJEXT)
+test_core_OBJECTS = $(am_test_core_OBJECTS)
+test_core_DEPENDENCIES = ../lib/libhak.la
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/build-aux/depcomp
 am__depfiles_maybe = depfiles
@@ -65,8 +65,8 @@ CCLD = $(CC)
 LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
-SOURCES = $(hak_test_core_SOURCES)
-DIST_SOURCES = $(hak_test_core_SOURCES)
+SOURCES = $(test_core_SOURCES)
+DIST_SOURCES = $(test_core_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -184,8 +184,8 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AM_CFLAGS = -Wall -ansi --pedantic
 AM_CPPFLAGS = -Wall -ansi --pedantic -I$(srcdir)/../lib
-hak_test_core_SOURCES = hak-test-core.c
-hak_test_core_LDADD = ../lib/libhak.la
+test_core_SOURCES = test-core.c
+test_core_LDADD = ../lib/libhak.la
 all: all-am
 
 .SUFFIXES:
@@ -229,9 +229,9 @@ clean-noinstPROGRAMS:
 	list=`for p in $$list; do echo "$$p"; done | sed 's/$(EXEEXT)$$//'`; \
 	echo " rm -f" $$list; \
 	rm -f $$list
-hak-test-core$(EXEEXT): $(hak_test_core_OBJECTS) $(hak_test_core_DEPENDENCIES) 
-	@rm -f hak-test-core$(EXEEXT)
-	$(LINK) $(hak_test_core_OBJECTS) $(hak_test_core_LDADD) $(LIBS)
+test-core$(EXEEXT): $(test_core_OBJECTS) $(test_core_DEPENDENCIES) 
+	@rm -f test-core$(EXEEXT)
+	$(LINK) $(test_core_OBJECTS) $(test_core_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -239,7 +239,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hak-test-core.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-core.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<

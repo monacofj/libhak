@@ -25,7 +25,6 @@
 #include <stdlib.h>
 #include <libhak.h>
 
-
 int main (int argc, char **argv)
 {
   int i;
@@ -40,6 +39,6 @@ int main (int argc, char **argv)
   hak_syserror(1);
 
   printf ("I'm here.\n");
-  
+
   return EXIT_SUCCESS;
 }

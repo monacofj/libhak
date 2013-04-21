@@ -22,6 +22,7 @@
 #ifndef _LIBHAK_H
 #define _LIBHAK_H
 
+#include <stdio.h>
 #include <errno.h>
 #include <string.h>
 #include <config.h>
