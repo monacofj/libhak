@@ -6,10 +6,17 @@
 /** @brief: Libhack information */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include <config.h>
+#include <libhak.h>
 
-int main (void)
+int main (int argc, char **argv)
 {
-  printf ("%s\n", PACKAGE_STRING);
-  return 0;
+
+  hak_initialize (argc, argv);
+  hak_info ();
+
+  printf ("Program name: %s\n", hak_engine.program_name);
+
+  return EXIT_SUCCESS;
 }

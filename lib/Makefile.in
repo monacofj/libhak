@@ -87,7 +87,7 @@ am__base_list = \
 am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(includedir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 libhak_la_LIBADD =
-am_libhak_la_OBJECTS = core.lo
+am_libhak_la_OBJECTS = hak_core.lo
 libhak_la_OBJECTS = $(am_libhak_la_OBJECTS)
 libhak_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
@@ -226,7 +226,7 @@ top_srcdir = @top_srcdir@
 AM_CFLAGS = -Wall -std=c99 --pedantic
 AM_CPPFLAGS = -Wall -std=c99 --pedantic
 lib_LTLIBRARIES = libhak.la
-libhak_la_SOURCES = core.c core.h
+libhak_la_SOURCES = hak_core.c  
 libhak_la_LDFLAGS = -version-info 0:0:0
 include_HEADERS = libhak.h
 all: all-am
@@ -303,7 +303,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/core.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/hak_core.Plo@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
