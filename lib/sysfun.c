@@ -19,16 +19,26 @@
 
 */
 
-#include <libhak.h>
 #include <stdlib.h>
+#include <string.h>
+
+#include <libhak.h>
 #include <libhak/sysfun.h>
 
-int hak_malloc(size_t size)
+void *hak_malloc(size_t size)
 {
   void *block;
   block = malloc (size);
   hak_syserror (!size);
-  return size;
+  return block;
 }
 
+char * hak_strdup (const char *string)
+{
+  char *new_string;
+  hak_error (!string, hak_error_null); 
+  new_string = strdup (string);
+  hak_syserror (!new_string);
+  return new_string;
+}
 

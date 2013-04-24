@@ -34,7 +34,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-noinst_PROGRAMS = test-core$(EXEEXT)
+noinst_PROGRAMS = test-core$(EXEEXT) test-sysfun$(EXEEXT)
 subdir = test
 DIST_COMMON = $(srcdir)/Makefile.am $(srcdir)/Makefile.in
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
@@ -52,6 +52,9 @@ PROGRAMS = $(noinst_PROGRAMS)
 am_test_core_OBJECTS = test-core.$(OBJEXT)
 test_core_OBJECTS = $(am_test_core_OBJECTS)
 test_core_DEPENDENCIES = ../lib/libhak.la
+am_test_sysfun_OBJECTS = test-sysfun.$(OBJEXT)
+test_sysfun_OBJECTS = $(am_test_sysfun_OBJECTS)
+test_sysfun_DEPENDENCIES = ../lib/libhak.la
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/build-aux/depcomp
 am__depfiles_maybe = depfiles
@@ -65,8 +68,8 @@ CCLD = $(CC)
 LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) $(LIBTOOLFLAGS) \
 	--mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) $(AM_LDFLAGS) \
 	$(LDFLAGS) -o $@
-SOURCES = $(test_core_SOURCES)
-DIST_SOURCES = $(test_core_SOURCES)
+SOURCES = $(test_core_SOURCES) $(test_sysfun_SOURCES)
+DIST_SOURCES = $(test_core_SOURCES) $(test_sysfun_SOURCES)
 ETAGS = etags
 CTAGS = ctags
 DISTFILES = $(DIST_COMMON) $(DIST_SOURCES) $(TEXINFOS) $(EXTRA_DIST)
@@ -182,10 +185,14 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
+
+# We want libhak to work with ansi-compliant C code.
 AM_CFLAGS = -Wall -ansi --pedantic
 AM_CPPFLAGS = -Wall -ansi --pedantic -I$(srcdir)/../lib
 test_core_SOURCES = test-core.c
 test_core_LDADD = ../lib/libhak.la
+test_sysfun_SOURCES = test-sysfun.c
+test_sysfun_LDADD = ../lib/libhak.la
 all: all-am
 
 .SUFFIXES:
@@ -232,6 +239,9 @@ clean-noinstPROGRAMS:
 test-core$(EXEEXT): $(test_core_OBJECTS) $(test_core_DEPENDENCIES) 
 	@rm -f test-core$(EXEEXT)
 	$(LINK) $(test_core_OBJECTS) $(test_core_LDADD) $(LIBS)
+test-sysfun$(EXEEXT): $(test_sysfun_OBJECTS) $(test_sysfun_DEPENDENCIES) 
+	@rm -f test-sysfun$(EXEEXT)
+	$(LINK) $(test_sysfun_OBJECTS) $(test_sysfun_LDADD) $(LIBS)
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
@@ -240,6 +250,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-core.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-sysfun.Po@am__quote@
 
 .c.o:
 @am__fastdepCC_TRUE@	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<

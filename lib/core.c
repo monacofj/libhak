@@ -19,20 +19,22 @@
 
 */
 
-#include <config.h>
-#include <libhak.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
-/* Global variables. */
+#include <libhak.h>
+
+/* 
+ *  Global variables. 
+ */
 
 hak_engine_t hak_engine;
 
 
 /* 
-   Public API.
-*/
+ *  Public API.
+ */
 
 
 /* Exhibit core information about libhak.*/
@@ -53,7 +55,8 @@ int hak_initialize (int argc, char **argv)
 
   hak_engine.argc = argc;
 
-  hak_engine.argv = (char *) malloc(argc *sizeof (char *));
+  hak_engine.argv = (char **) malloc(argc * sizeof (char *));
+
   for (i=0; i<argc; i++)
     hak_engine.argv[i] = strdup (argv[i]);
 
@@ -70,5 +73,16 @@ int hak_initialize (int argc, char **argv)
   last_token++;
   hak_engine.program_name= strdup (last_token);
 
-
+  return EXIT_SUCCESS;
 }
+
+/* 
+ * Non-public functions and variables.
+ */
+
+/* Error messages for hak_engine.error. */
+
+const char *hak_error_messages[] =
+  {
+    "Argument NULL not valid",	/* hak_error_null. */
+  };
