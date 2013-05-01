@@ -54,7 +54,7 @@ test_core_OBJECTS = $(am_test_core_OBJECTS)
 test_core_DEPENDENCIES = ../lib/libhak.la
 am_test_sysfun_OBJECTS = test-sysfun.$(OBJEXT)
 test_sysfun_OBJECTS = $(am_test_sysfun_OBJECTS)
-test_sysfun_DEPENDENCIES = ../lib/libhak.la
+test_sysfun_DEPENDENCIES = ../lib/libhak.la @LIBOBJS@
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/build-aux/depcomp
 am__depfiles_maybe = depfiles
@@ -98,6 +98,8 @@ EGREP = @EGREP@
 EXEEXT = @EXEEXT@
 FGREP = @FGREP@
 GREP = @GREP@
+HAK_ALTFUNC = @HAK_ALTFUNC@
+HAK_STANDARD_FLAGS = @HAK_STANDARD_FLAGS@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -187,12 +189,12 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 
 # We want libhak to work with ansi-compliant C code.
-AM_CFLAGS = -Wall -ansi --pedantic
-AM_CPPFLAGS = -Wall -ansi --pedantic -I$(srcdir)/../lib
+AM_CFLAGS = -Wall  --pedantic
+AM_CPPFLAGS = -Wall  --pedantic -I$(srcdir)/../lib
 test_core_SOURCES = test-core.c
 test_core_LDADD = ../lib/libhak.la
 test_sysfun_SOURCES = test-sysfun.c
-test_sysfun_LDADD = ../lib/libhak.la
+test_sysfun_LDADD = ../lib/libhak.la @LIBOBJS@
 all: all-am
 
 .SUFFIXES:

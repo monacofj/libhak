@@ -36,6 +36,10 @@ int main (int argc, char **argv)
 
   printf ("Program name: %s\n", hak_engine.program_name);
 
+  hak_log ("%s %d %d %d\n", "Hello", 1, 2, 3);
+
+  hak_plog ("%d is a nice number\n", 7);
+
   hak_syserror(1);
 
   printf ("I'm here.\n");

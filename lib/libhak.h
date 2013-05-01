@@ -36,6 +36,8 @@ struct hak_engine_t
   char *program_name;		/* Program invocation short name. */
   int argc;			/* Number of command line arguments. */
   char **argv;			/* Pointer to the command line arguments. */
+  FILE *logstream;		/* Where to log messages. */
+  char *logsymbol;
 };
 
 extern hak_engine_t hak_engine;
@@ -106,6 +108,12 @@ extern const char* hak_error_messages[];
 #define hak_error(expression, error) hak_nfatal(expression, error)
 #endif	/* HAK_FATAL */
 
+
+/* Log. */
+int hak_log (const char *, ...);
+
+/* Program log (same as log with hak_engine.symbol prepended to it. */
+int hak_plog (const char *, ...);
 
 
 #endif	/* _LIBHAK_H */

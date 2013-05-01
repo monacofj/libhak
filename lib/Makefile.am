@@ -12,13 +12,13 @@
 #augmented the interface (new functions)	CURRENT+1 : 0 : AGE+1
 #broken old interface (e.g. removed functions) 	CURRENT+1 : 0 : 0
 
+export HAK_STD=@HAK_STANDARD_FLAGS@
 
-
-AM_CFLAGS = -Wall --pedantic 
-AM_CPPFLAGS = -Wall --pedantic 
+AM_CFLAGS = -Wall --pedantic $(HAK_STD)
+AM_CPPFLAGS = -Wall --pedantic $(HAK_STD) @HAK_ALTFUNC@
 
 lib_LTLIBRARIES = libhak.la
-libhak_la_SOURCES = core.c  sysfun.c
+libhak_la_SOURCES = core.c  sysfun.c 
 libhak_la_LDFLAGS = -version-info 0:0:0
 nobase_include_HEADERS = libhak.h libhak/sysfun.h
 

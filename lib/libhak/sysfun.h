@@ -28,4 +28,5 @@ void * hak_malloc(size_t size);
 /* Wrapper for strdup */
 char * hak_strdup (const char *string);
 
+
 #endif	/* _LIBHAK_SYSFUN_H */

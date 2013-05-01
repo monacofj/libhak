@@ -24,6 +24,8 @@
 #include <libhak.h>
 #include <libhak/sysfun.h>
 
+void foo(void);
+
 int main (int argc, char **argv)
 {
   void * buffer;
@@ -34,12 +36,12 @@ int main (int argc, char **argv)
   buffer = hak_malloc (100);
   free(buffer); 
 
-  string = hak_strdup (NULL);
-
-  exit(1);
+  string = hak_strdup ("Hello");
 
   printf ("%s\n", string);
   free(string);
+
+  /* foo(); */
 
   return EXIT_SUCCESS;
 }

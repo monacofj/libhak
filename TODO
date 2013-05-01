@@ -12,3 +12,7 @@
 	   
 	   * For now, some ad hoc test programns in test/. A proper test suit would be nice.
 
+2013-05-01 - Monaco
+
+	   * hak_sysnfatal might return immediatelly with a given value.
+

@@ -13,9 +13,8 @@
 #broken old interface (e.g. removed functions) 	CURRENT+1 : 0 : 0
 
 
-
-AM_CFLAGS = -Wall -std=c99 --pedantic
-AM_CPPFLAGS = -Wall -std=c99 --pedantic
+AM_CFLAGS = -Wall  --pedantic $(HAK_STD)
+AM_CPPFLAGS = -Wall  --pedantic $(HAK_STD)
 include_HEADERS = libhak/sysfun.h 
 
 .PHONY clean-garbage:

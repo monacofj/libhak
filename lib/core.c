@@ -22,8 +22,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdarg.h>
 
 #include <libhak.h>
+#include <libhak/sysfun.h>
 
 /* 
  *  Global variables. 
@@ -55,10 +57,10 @@ int hak_initialize (int argc, char **argv)
 
   hak_engine.argc = argc;
 
-  hak_engine.argv = (char **) malloc(argc * sizeof (char *));
+  hak_engine.argv = (char **) hak_malloc(argc * sizeof (char *));
 
   for (i=0; i<argc; i++)
-    hak_engine.argv[i] = strdup (argv[i]);
+    hak_engine.argv[i] = hak_strdup (argv[i]);
 
   /* Determine program invocation name (without path) */
 
@@ -71,10 +73,43 @@ int hak_initialize (int argc, char **argv)
       current_token++;
     }
   last_token++;
-  hak_engine.program_name= strdup (last_token);
+  hak_engine.program_name= hak_strdup (last_token);
+
+  /* Log symbol. */
+
+  hak_engine.logsymbol = hak_strdup (hak_engine.program_name);
+
+
+  /* Default log stream; */
+
+  hak_engine.logstream = stderr; /* Standard error. */
 
   return EXIT_SUCCESS;
 }
+
+/* Log */
+
+int hak_log (const char *format, ...)
+{
+  va_list ap;
+  int n;
+  va_start (ap, format);
+  n = vfprintf (hak_engine.logstream, format, ap);
+  return n;
+}
+
+/* Program Log (prepend program name)*/
+
+int hak_plog (const char *format, ...)
+{
+  va_list ap;
+  int n;
+  va_start (ap, format);
+  n = fprintf (hak_engine.logstream, "%s ", hak_engine.logsymbol);
+  n = vfprintf (hak_engine.logstream, format, ap);
+  return n;
+}
+
 
 /* 
  * Non-public functions and variables.
@@ -86,3 +121,4 @@ const char *hak_error_messages[] =
   {
     "Argument NULL not valid",	/* hak_error_null. */
   };
+

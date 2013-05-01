@@ -136,6 +136,8 @@ EGREP = @EGREP@
 EXEEXT = @EXEEXT@
 FGREP = @FGREP@
 GREP = @GREP@
+HAK_ALTFUNC = @HAK_ALTFUNC@
+HAK_STANDARD_FLAGS = @HAK_STANDARD_FLAGS@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -223,10 +225,10 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-AM_CFLAGS = -Wall --pedantic 
-AM_CPPFLAGS = -Wall --pedantic 
+AM_CFLAGS = -Wall --pedantic $(HAK_STD)
+AM_CPPFLAGS = -Wall --pedantic $(HAK_STD) @HAK_ALTFUNC@
 lib_LTLIBRARIES = libhak.la
-libhak_la_SOURCES = core.c  sysfun.c
+libhak_la_SOURCES = core.c  sysfun.c 
 libhak_la_LDFLAGS = -version-info 0:0:0
 nobase_include_HEADERS = libhak.h libhak/sysfun.h
 all: all-am
@@ -559,6 +561,8 @@ uninstall-am: uninstall-libLTLIBRARIES uninstall-nobase_includeHEADERS
 	tags uninstall uninstall-am uninstall-libLTLIBRARIES \
 	uninstall-nobase_includeHEADERS
 
+
+export HAK_STD=@HAK_STANDARD_FLAGS@
 
 .PHONY clean-garbage:
 	rm -rf $(CUSTOM_GARBAGE)

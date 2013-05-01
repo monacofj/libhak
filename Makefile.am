@@ -8,3 +8,4 @@ export CUSTOM_GARBAGE = *~ \#* *.o
 	make -C test clean-garbage
 	make -C lib  clean-garbage
 	make -C doc  clean-garbage
+
