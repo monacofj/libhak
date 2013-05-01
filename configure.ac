@@ -43,7 +43,7 @@ AC_SUBST([HAK_STANDARD_FLAGS])
 dnl Function replacements for ANSI+Posix compliance.
 
 AC_CONFIG_LIBOBJ_DIR([replace])
-AC_CHECK_DECLS([strdup],[],[AC_REPLACE_FUNCS(strdup)])
+AC_CHECK_DECLS([strdup],[],[AC_LIBOBJ(strdup)])
 
 
 

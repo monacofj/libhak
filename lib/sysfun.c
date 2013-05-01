@@ -35,16 +35,6 @@ void *hak_malloc(size_t size)
   return block;
 }
 
-#if HAVE_DECL_STRDUP == 0
-#define STRDUP_STRING "Ad hoc strdup"
-char *strdup (const char *string)
-{
-  char *new;
-  new = malloc (sizeof (STRDUP_STRING)+1);
-  memcpy (new, STRDUP_STRING, sizeof (STRDUP_STRING));
-  return new;
-}
-#endif
 
 char * hak_strdup (const char *string)
 {

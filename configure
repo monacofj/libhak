@@ -11171,24 +11171,11 @@ _ACEOF
 if test $ac_have_decl = 1; then :
 
 else
-  for ac_func in strdup
-do :
-  ac_fn_c_check_func "$LINENO" "strdup" "ac_cv_func_strdup"
-if test "x$ac_cv_func_strdup" = x""yes; then :
-  cat >>confdefs.h <<_ACEOF
-#define HAVE_STRDUP 1
-_ACEOF
-
-else
   case " $LIBOBJS " in
-  *" $ac_func.$ac_objext "* ) ;;
-  *) LIBOBJS="$LIBOBJS $ac_func.$ac_objext"
+  *" strdup.$ac_objext "* ) ;;
+  *) LIBOBJS="$LIBOBJS strdup.$ac_objext"
  ;;
 esac
-
-fi
-done
-
 
 fi
 
