@@ -1,8 +1,12 @@
 
 
 # We want libhak to work with ansi-compliant C code.
-AM_CFLAGS = -Wall  --pedantic
-AM_CPPFLAGS = -Wall  --pedantic -I$(srcdir)/../lib
+# AM_CFLAGS = -Wall  --pedantic
+# AM_CPPFLAGS = -Wall  --pedantic -I$(srcdir)/../lib
+
+AM_CFLAGS =  @HAK_CFLAGS@
+AM_CPPFLAGS = @HAK_CPPFLAGS@ -I$(srcdir)/../lib
+
 
 noinst_PROGRAMS = test-core test-sysfun
 

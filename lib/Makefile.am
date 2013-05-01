@@ -12,10 +12,9 @@
 #augmented the interface (new functions)	CURRENT+1 : 0 : AGE+1
 #broken old interface (e.g. removed functions) 	CURRENT+1 : 0 : 0
 
-HAK_STD=@HAK_STANDARD_FLAGS@
+AM_CFLAGS =  @HAK_CFLAGS@
+AM_CPPFLAGS = @HAK_CPPFLAGS@ -include ${srcdir}/replace/replace.h
 
-AM_CFLAGS = -Wall --pedantic $(HAK_STD)
-AM_CPPFLAGS = -Wall --pedantic $(HAK_STD) -include ${srcdir}/replace/replace.h
 
 lib_LTLIBRARIES = libhak.la
 libhak_la_SOURCES = core.c  sysfun.c 

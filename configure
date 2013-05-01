@@ -750,7 +750,8 @@ HAVE_DOXYGEN_FALSE
 HAVE_DOXYGEN_TRUE
 DOXYGEN
 LIBOBJS
-HAK_STANDARD_FLAGS
+HAK_CFLAGS
+HAK_CPPFLAGS
 CPP
 OTOOL64
 OTOOL
@@ -4410,13 +4411,13 @@ if test "${lt_cv_nm_interface+set}" = set; then :
 else
   lt_cv_nm_interface="BSD nm"
   echo "int some_variable = 0;" > conftest.$ac_ext
-  (eval echo "\"\$as_me:4413: $ac_compile\"" >&5)
+  (eval echo "\"\$as_me:4414: $ac_compile\"" >&5)
   (eval "$ac_compile" 2>conftest.err)
   cat conftest.err >&5
-  (eval echo "\"\$as_me:4416: $NM \\\"conftest.$ac_objext\\\"\"" >&5)
+  (eval echo "\"\$as_me:4417: $NM \\\"conftest.$ac_objext\\\"\"" >&5)
   (eval "$NM \"conftest.$ac_objext\"" 2>conftest.err > conftest.out)
   cat conftest.err >&5
-  (eval echo "\"\$as_me:4419: output\"" >&5)
+  (eval echo "\"\$as_me:4420: output\"" >&5)
   cat conftest.out >&5
   if $GREP 'External.*some_variable' conftest.out > /dev/null; then
     lt_cv_nm_interface="MS dumpbin"
@@ -5622,7 +5623,7 @@ ia64-*-hpux*)
   ;;
 *-*-irix6*)
   # Find out which ABI we are using.
-  echo '#line 5625 "configure"' > conftest.$ac_ext
+  echo '#line 5626 "configure"' > conftest.$ac_ext
   if { { eval echo "\"\$as_me\":${as_lineno-$LINENO}: \"$ac_compile\""; } >&5
   (eval $ac_compile) 2>&5
   ac_status=$?
@@ -7152,11 +7153,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:7155: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:7156: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:7159: \$? = $ac_status" >&5
+   echo "$as_me:7160: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -7491,11 +7492,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:7494: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:7495: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>conftest.err)
    ac_status=$?
    cat conftest.err >&5
-   echo "$as_me:7498: \$? = $ac_status" >&5
+   echo "$as_me:7499: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s "$ac_outfile"; then
      # The compiler can only warn and ignore the option if not recognized
      # So say no if there are warnings other than the usual output.
@@ -7596,11 +7597,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:7599: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:7600: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:7603: \$? = $ac_status" >&5
+   echo "$as_me:7604: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -7651,11 +7652,11 @@ else
    -e 's:.*FLAGS}\{0,1\} :&$lt_compiler_flag :; t' \
    -e 's: [^ ]*conftest\.: $lt_compiler_flag&:; t' \
    -e 's:$: $lt_compiler_flag:'`
-   (eval echo "\"\$as_me:7654: $lt_compile\"" >&5)
+   (eval echo "\"\$as_me:7655: $lt_compile\"" >&5)
    (eval "$lt_compile" 2>out/conftest.err)
    ac_status=$?
    cat out/conftest.err >&5
-   echo "$as_me:7658: \$? = $ac_status" >&5
+   echo "$as_me:7659: \$? = $ac_status" >&5
    if (exit $ac_status) && test -s out/conftest2.$ac_objext
    then
      # The compiler can only warn and ignore the option if not recognized
@@ -10035,7 +10036,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<_LT_EOF
-#line 10038 "configure"
+#line 10039 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -10131,7 +10132,7 @@ else
   lt_dlunknown=0; lt_dlno_uscore=1; lt_dlneed_uscore=2
   lt_status=$lt_dlunknown
   cat > conftest.$ac_ext <<_LT_EOF
-#line 10134 "configure"
+#line 10135 "configure"
 #include "confdefs.h"
 
 #if HAVE_DLFCN_H
@@ -11151,8 +11152,11 @@ fi
 
 
 
-HAK_STANDARD_FLAGS="--ansi -D_POSIX_SOURCE"
-CPPFLAGS="$CPPFLAGS $HAK_STANDARD_FLAGS"
+HAK_CPPFLAGS="-ansi -D_POSIX_SOURCE -Wall -Werror --pedantic-error"
+HAK_CFLAGS="-ansi -D_POSIX_SOURCE -Wall -Werror --pedantic-error"
+
+CPPFLAGS="$HAK_CPPFLAGS $CPPFLAGS"
+CFLAGS="$HAK_CFLAGS $CFLAGS"
 
 
 

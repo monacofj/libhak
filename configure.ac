@@ -35,10 +35,13 @@ AC_HEADER_STDC
 
 dnl Stick to ANSI + Posix
 
-HAK_STANDARD_FLAGS="--ansi -D_POSIX_SOURCE"
-CPPFLAGS="$CPPFLAGS $HAK_STANDARD_FLAGS"
-AC_SUBST([HAK_STANDARD_FLAGS])
+HAK_CPPFLAGS="-ansi -D_POSIX_SOURCE -Wall -Werror --pedantic-error"
+HAK_CFLAGS="-ansi -D_POSIX_SOURCE -Wall -Werror --pedantic-error" 
 
+CPPFLAGS="$HAK_CPPFLAGS $CPPFLAGS"
+CFLAGS="$HAK_CFLAGS $CFLAGS"
+AC_SUBST([HAK_CPPFLAGS])
+AC_SUBST([HAK_CFLAGS])		    
 
 dnl Function replacements for ANSI+Posix compliance.
 

@@ -1,5 +1,7 @@
-AM_CFLAGS = -Wall -ansi --pedantic
-AM_CPPFLAGS = -Wall -ansi --pedantic -I$(srcdir)/../lib
+
+AM_CFLAGS =  @HAK_CFLAGS@
+AM_CPPFLAGS = @HAK_CPPFLAGS@ -I$(srcdir)/../lib
+
 
 bin_PROGRAMS = hak-info
 
