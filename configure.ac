@@ -2,7 +2,7 @@ AC_INIT([libhak], [0.1], [monaco.fj@gmail.com])
 AC_PREREQ([2.65])			 dnl Required autoconf version
 AC_CONFIG_AUX_DIR([build-aux])		 dnl Where to write auxiliary files
 AC_CONFIG_MACRO_DIR([m4])		 dnl m4 files here
-AM_INIT_AUTOMAKE([-Wall -Werror 1.11.1]) dnl Warnings as errors and version
+AM_INIT_AUTOMAKE([-Wall -Werror 1.11.1 subdir-objects]) dnl Warnings as errors and version
 AC_CONFIG_HEADERS([config.h])		 dnl Generate config.h
 LT_INIT					 dnl Add libtool support to 'configure'
 
@@ -29,6 +29,9 @@ dnl LIBS="$PTHREAD_LIBS $LIBS"
 dnl CFLAGS="$CFLAGS $PTHREAD_CFLAGS"
 dnl CC="$PTHREAD_CC"
 
+dnl Standard headers
+
+AC_HEADER_STDC
 
 dnl Stick to ANSI + Posix
 
@@ -37,12 +40,12 @@ CPPFLAGS="$CPPFLAGS $HAK_STANDARD_FLAGS"
 AC_SUBST([HAK_STANDARD_FLAGS])
 
 
-dnl Function replacements
-AC_CHECK_DECLS([strdup],, HAK_ALTFUNC="$HAK_ALTFUNC -include replace/foo.h")
-AC_SUBST([HAK_ALTFUNC])
+dnl Function replacements for ANSI+Posix compliance.
+
+AC_CONFIG_LIBOBJ_DIR([replace])
+AC_CHECK_DECLS([strdup],[],[AC_REPLACE_FUNCS(strdup)])
 
 
-AC_HEADER_STDC
 
 dnl Check for doxygen
 
@@ -53,11 +56,7 @@ fi
 AM_CONDITIONAL([HAVE_DOXYGEN], 
 [test -n "$DOXYGEN"])AM_COND_IF([HAVE_DOXYGEN], [AC_CONFIG_FILES([doc/Doxyfile])])
 
-dnl Substitutions
 
-dnl AC_CONFIG_LIBOBJ_DIR([replace])
-dnl AC_REPLACE_FUNCS(foo)
-
-# TODO: Temporality removed doc/Makefile
+dnl TODO: Temporality removed doc/Makefile
 AC_CONFIG_FILES([Makefile lib/Makefile test/Makefile src/Makefile ])
 AC_OUTPUT

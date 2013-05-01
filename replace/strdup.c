@@ -1,4 +1,4 @@
-/*  test-sysfun.c - Test sysfun facilities.
+/*  strdup.c - Provision of strdup for C99+Posix compliance
     
     Copyright 2013  Francisco Jose Monaco   <monaco.fj@gmail.com>
 
@@ -19,26 +19,15 @@
 
 */
 
-#include <stdio.h>
+#include <config.h>
 #include <stdlib.h>
-#include <libhak.h>
-#include <libhak/sysfun.h>
+#include <string.h>
 
-
-int main (int argc, char **argv)
+#define STRDUP_STRING "Ad hoc strdup"
+char *strdup (const char *string)
 {
-  void * buffer;
-  char *string;
-
-  hak_initialize (argc, argv);
-
-  buffer = hak_malloc (100);
-  free(buffer); 
-
-  string = hak_strdup ("Hello");
-
-  printf ("%s\n", string);
-  free(string);
-
-  return EXIT_SUCCESS;
+  char *new;
+  new = malloc (sizeof (STRDUP_STRING)+1);
+  memcpy (new, STRDUP_STRING, sizeof (STRDUP_STRING));
+  return new;
 }

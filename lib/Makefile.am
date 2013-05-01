@@ -15,7 +15,7 @@
 export HAK_STD=@HAK_STANDARD_FLAGS@
 
 AM_CFLAGS = -Wall --pedantic $(HAK_STD)
-AM_CPPFLAGS = -Wall --pedantic $(HAK_STD) @HAK_ALTFUNC@
+AM_CPPFLAGS = -Wall --pedantic $(HAK_STD) -include ${srcdir}/replace/replace.h
 
 lib_LTLIBRARIES = libhak.la
 libhak_la_SOURCES = core.c  sysfun.c 

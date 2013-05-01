@@ -742,14 +742,14 @@ ac_includes_default="\
 # include <unistd.h>
 #endif"
 
+ac_config_libobj_dir=replace
 ac_subst_vars='am__EXEEXT_FALSE
 am__EXEEXT_TRUE
 LTLIBOBJS
-LIBOBJS
 HAVE_DOXYGEN_FALSE
 HAVE_DOXYGEN_TRUE
 DOXYGEN
-HAK_ALTFUNC
+LIBOBJS
 HAK_STANDARD_FLAGS
 CPP
 OTOOL64
@@ -11037,31 +11037,6 @@ fi
 
 
 
-
-HAK_STANDARD_FLAGS="--ansi -D_POSIX_SOURCE"
-CPPFLAGS="$CPPFLAGS $HAK_STANDARD_FLAGS"
-
-
-
-ac_fn_c_check_decl "$LINENO" "strdup" "ac_cv_have_decl_strdup" "$ac_includes_default"
-if test "x$ac_cv_have_decl_strdup" = x""yes; then :
-  ac_have_decl=1
-else
-  ac_have_decl=0
-fi
-
-cat >>confdefs.h <<_ACEOF
-#define HAVE_DECL_STRDUP $ac_have_decl
-_ACEOF
-if test $ac_have_decl = 1; then :
-
-else
-  HAK_ALTFUNC="$HAK_ALTFUNC -include replace/foo.h"
-fi
-
-
-
-
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for ANSI C header files" >&5
 $as_echo_n "checking for ANSI C header files... " >&6; }
 if test "${ac_cv_header_stdc+set}" = set; then :
@@ -11176,6 +11151,51 @@ fi
 
 
 
+HAK_STANDARD_FLAGS="--ansi -D_POSIX_SOURCE"
+CPPFLAGS="$CPPFLAGS $HAK_STANDARD_FLAGS"
+
+
+
+
+
+ac_fn_c_check_decl "$LINENO" "strdup" "ac_cv_have_decl_strdup" "$ac_includes_default"
+if test "x$ac_cv_have_decl_strdup" = x""yes; then :
+  ac_have_decl=1
+else
+  ac_have_decl=0
+fi
+
+cat >>confdefs.h <<_ACEOF
+#define HAVE_DECL_STRDUP $ac_have_decl
+_ACEOF
+if test $ac_have_decl = 1; then :
+
+else
+  for ac_func in strdup
+do :
+  ac_fn_c_check_func "$LINENO" "strdup" "ac_cv_func_strdup"
+if test "x$ac_cv_func_strdup" = x""yes; then :
+  cat >>confdefs.h <<_ACEOF
+#define HAVE_STRDUP 1
+_ACEOF
+
+else
+  case " $LIBOBJS " in
+  *" $ac_func.$ac_objext "* ) ;;
+  *) LIBOBJS="$LIBOBJS $ac_func.$ac_objext"
+ ;;
+esac
+
+fi
+done
+
+
+fi
+
+
+
+
+
 for ac_prog in doxygen
 do
   # Extract the first word of "$ac_prog", so it can be a program name with args.
@@ -11235,8 +11255,6 @@ if test -n "$DOXYGEN"; then
 fi
 
 
-
-# TODO: Temporality removed doc/Makefile
 ac_config_files="$ac_config_files Makefile lib/Makefile test/Makefile src/Makefile"
 
 cat >confcache <<\_ACEOF

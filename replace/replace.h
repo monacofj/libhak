@@ -1,4 +1,4 @@
-/*  test-sysfun.c - Test sysfun facilities.
+/*  replace.h - Replacement functions for C99+Posix compliance
     
     Copyright 2013  Francisco Jose Monaco   <monaco.fj@gmail.com>
 
@@ -19,26 +19,16 @@
 
 */
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <libhak.h>
-#include <libhak/sysfun.h>
+#ifndef HAK_REPLACE_H
+#define HAK_REPLACE_H
+
+/* strdup. */
+
+#if HAVE_DECL_STRDUP == 0
+char *strdup (const char *string);
+#endif
 
 
-int main (int argc, char **argv)
-{
-  void * buffer;
-  char *string;
 
-  hak_initialize (argc, argv);
 
-  buffer = hak_malloc (100);
-  free(buffer); 
-
-  string = hak_strdup ("Hello");
-
-  printf ("%s\n", string);
-  free(string);
-
-  return EXIT_SUCCESS;
-}
+#endif	/* HAK_REPLACE_H */
