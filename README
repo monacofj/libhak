@@ -1,0 +1,40 @@
+
+	Libhak - A library of handy tools for C programmers.
+
+	IN BRIEF
+
+	libhak is a collection of convenience functions often needed
+	by C programmers.  Things like linked structures such as lists and trees,
+	operations on queues and stacks, checking for system calls' errors,
+	processing command line options and so on.  They are ready at hand with
+	libhak.  And there is no more excuses to coding in some other "easy" language.
+
+	THE WHOLE HISTORY
+
+	Libhak may stand for either "Handy Army Knife" or "Hackers Army Knife",
+	if you feel like geek-style acronyms, or maybe a phonetic contraction for 
+	"HAppy HAcKing", in honor of GNU gurus. 
+
+	And the history begins more or less like this...
+
+	Once upon a time there was a small library...  (to be continued).
+
+	QUICK REFERENCE
+	
+	* Libhak if free software; see COPYING.LESSER for license information.
+
+	* As of this writing Libhak is a work on progress in its early alpha 
+	  stage. That means: things may not work and the source is only useful
+	   for the library's developers.
+
+	* Building and installing: refer to INSTALL. 
+	  Quick start: ./configure && make && make install. 
+
+	* Refer to libhak documentation at $(top_srcdir)/doc for futher
+	  information (currently broken).
+	
+	* This document will be updated as soon as libhak turns into beta.
+	
+
+
+	
