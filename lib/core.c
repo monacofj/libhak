@@ -115,10 +115,7 @@ int hak_plog (const char *format, ...)
  * Non-public functions and variables.
  */
 
-/* Error messages for hak_engine.error. */
 
-const char *hak_error_messages[] =
-  {
-    "Argument NULL not valid",	/* hak_error_null. */
-  };
+
+
 

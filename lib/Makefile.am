@@ -40,7 +40,7 @@ AM_CPPFLAGS = @HAK_CPPFLAGS@ -include ${top_srcdir}/replace/replace.h
 # The libhak library.
 
 lib_LTLIBRARIES = libhak.la			# Target
-libhak_la_SOURCES = core.c  sysfun.c		# Sources
+libhak_la_SOURCES = core.c  sysfun.c messages.c	# Sources
 libhak_la_LDFLAGS = -version-info 0:0:0		# Linker flags
 libhak_la_LIBADD = @LIBOBJS@			# Replacement functions
 

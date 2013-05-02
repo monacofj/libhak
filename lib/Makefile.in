@@ -109,7 +109,7 @@ am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(includedir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
 LIBOBJDIR = ../replace/
 libhak_la_DEPENDENCIES = @LIBOBJS@
-am_libhak_la_OBJECTS = core.lo sysfun.lo
+am_libhak_la_OBJECTS = core.lo sysfun.lo messages.lo
 libhak_la_OBJECTS = $(am_libhak_la_OBJECTS)
 libhak_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CCLD) $(AM_CFLAGS) $(CFLAGS) \
@@ -252,7 +252,7 @@ AM_CPPFLAGS = @HAK_CPPFLAGS@ -include ${top_srcdir}/replace/replace.h
 
 # The libhak library.
 lib_LTLIBRARIES = libhak.la			# Target
-libhak_la_SOURCES = core.c  sysfun.c		# Sources
+libhak_la_SOURCES = core.c  sysfun.c messages.c	# Sources
 libhak_la_LDFLAGS = -version-info 0:0:0		# Linker flags
 libhak_la_LIBADD = @LIBOBJS@			# Replacement functions
 
@@ -334,6 +334,7 @@ distclean-compile:
 
 @AMDEP_TRUE@@am__include@ @am__quote@../replace/$(DEPDIR)/strdup.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/core.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/messages.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sysfun.Plo@am__quote@
 
 .c.o:
