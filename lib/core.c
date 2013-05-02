@@ -1,4 +1,4 @@
-/*  hak_core.c - 
+/*  hak_core.c - Core libhak engine.
     
     Copyright 2013  Francisco Jose Monaco   <monaco.fj@gmail.com>
 

@@ -1,4 +1,4 @@
-/*  sysfun.c - 
+/*  sysfun.c - Handy wrappers for common libc functions.
     
     Copyright 2013  Francisco Jose Monaco   <monaco.fj@gmail.com>
 

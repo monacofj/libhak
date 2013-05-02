@@ -15,19 +15,40 @@
 
 @SET_MAKE@
 
-# libhack.la
-
-# Reminder:
-# versioning: CURRENT:REVISION:AGE
-#CURRENT The latest interface implemented.
-#REVISION The implementation number of CURRENT (read: number of bugs fixed...)
-#AGE The number of interfaces implemented, minus one.
-#The library supports all interfaces between CURRENT − AGEand CURRENT.
+#  Makefile.am - For libhak utility programs
+#    
+#    Copyright 2013  Francisco Jose Monaco   <monaco.fj@gmail.com>
 #
-#If you have 
-#not changed the interface (bug fixes)		CURRENT : REVISION+1 : AGE
-#augmented the interface (new functions)	CURRENT+1 : 0 : AGE+1
-#broken old interface (e.g. removed functions) 	CURRENT+1 : 0 : 0
+#    This file is part of Foo. 
+#
+#    Foo is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    Foo is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with .  If not, see <http://www.gnu.org/licenses/>.
+#
+
+# Reminder for libhak.la versioning
+#
+# Versioning: CURRENT:REVISION:AGE
+# CURRENT The latest interface implemented.
+# REVISION The implementation number of CURRENT (read: number of bugs fixed...)
+# AGE The number of interfaces implemented, minus one.
+# The library supports all interfaces between CURRENT − AGEand CURRENT.
+#
+# If you have 
+# not changed the interface (bug fixes)		CURRENT : REVISION+1 : AGE
+# augmented the interface (new functions)	CURRENT+1 : 0 : AGE+1
+# broken old interface (e.g. removed functions) 	CURRENT+1 : 0 : 0
+
+# Compiler flags
 
 
 VPATH = @srcdir@
@@ -86,7 +107,8 @@ am__base_list = \
   sed '$$!N;$$!N;$$!N;$$!N;s/\n/ /g'
 am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(includedir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
-libhak_la_LIBADD =
+LIBOBJDIR = ../replace/
+libhak_la_DEPENDENCIES = @LIBOBJS@
 am_libhak_la_OBJECTS = core.lo sysfun.lo
 libhak_la_OBJECTS = $(am_libhak_la_OBJECTS)
 libhak_la_LINK = $(LIBTOOL) --tag=CC $(AM_LIBTOOLFLAGS) \
@@ -226,10 +248,15 @@ top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AM_CFLAGS = @HAK_CFLAGS@
-AM_CPPFLAGS = @HAK_CPPFLAGS@ -include ${srcdir}/replace/replace.h
-lib_LTLIBRARIES = libhak.la
-libhak_la_SOURCES = core.c  sysfun.c 
-libhak_la_LDFLAGS = -version-info 0:0:0
+AM_CPPFLAGS = @HAK_CPPFLAGS@ -include ${top_srcdir}/replace/replace.h
+
+# The libhak library.
+lib_LTLIBRARIES = libhak.la			# Target
+libhak_la_SOURCES = core.c  sysfun.c		# Sources
+libhak_la_LDFLAGS = -version-info 0:0:0		# Linker flags
+libhak_la_LIBADD = @LIBOBJS@			# Replacement functions
+
+# The lihak headers.
 nobase_include_HEADERS = libhak.h libhak/sysfun.h
 all: all-am
 
@@ -305,6 +332,7 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@../replace/$(DEPDIR)/strdup.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/core.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/sysfun.Plo@am__quote@
 
@@ -465,6 +493,7 @@ install-strip:
 	  `test -z '$(STRIP)' || \
 	    echo "INSTALL_PROGRAM_ENV=STRIPPROG='$(STRIP)'"` install
 mostlyclean-generic:
+	-test -z "$(LIBOBJS)" || rm -f $(LIBOBJS)
 
 clean-generic:
 
@@ -481,7 +510,7 @@ clean-am: clean-generic clean-libLTLIBRARIES clean-libtool \
 	mostlyclean-am
 
 distclean: distclean-am
-	-rm -rf ./$(DEPDIR)
+	-rm -rf ../replace/$(DEPDIR) ./$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
@@ -527,7 +556,7 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-	-rm -rf ./$(DEPDIR)
+	-rm -rf ../replace/$(DEPDIR) ./$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
@@ -564,6 +593,8 @@ uninstall-am: uninstall-libLTLIBRARIES uninstall-nobase_includeHEADERS
 	tags uninstall uninstall-am uninstall-libLTLIBRARIES \
 	uninstall-nobase_includeHEADERS
 
+
+# Clean custom garbage
 
 .PHONY clean-garbage:
 	rm -rf $(CUSTOM_GARBAGE)

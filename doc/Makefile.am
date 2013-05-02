@@ -1,3 +1,22 @@
+#  Makefile.am - For libhak documentation
+#    
+#    Copyright 2013  Francisco Jose Monaco   <monaco.fj@gmail.com>
+#
+#    This file is part of Foo. 
+#
+#    Foo is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    Foo is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with .  If not, see <http://www.gnu.org/licenses/>.
+#
 
 # Do it all only if doxygen is installed.
 
@@ -20,14 +39,12 @@ dist_doc_DATA = $(PDF_DIR)/refman.pdf
 $(PDF_DIR)/refman.pdf : doxyfile.stamp 
 
 
-
 # This is the rule to build the documentation source file from the source code.
 #
 # Doxygen will produce a lot of documentation source files. Which one do we 
 # check to verify if it is newer than the source code? We can rely on an
 # artifice here: doxyfile.stamp is the one file representing the whole of the
 # documentation source files.
-
 
 
 doxyfile.stamp: Doxyfile.in 
@@ -38,18 +55,15 @@ doxyfile.stamp: Doxyfile.in
 
 CLEANFILES = doxyfile.stamp
 
-
 install-data-local: doxyfile.stamp 
 
 
 .PHONY clean-garbage:
 	rm -rf $(CUSTOM_GARBAGE)
 
-
 clean-local:
 	rm -rf $(top_srcdir)/doc/latex
 	rm -rf $(top_srcdir)/doc/man
-
 
 
 endif

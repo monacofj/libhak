@@ -1,3 +1,23 @@
+dnl  configure.ac - Libhak autoconf file.
+dnl    
+dnl    Copyright 2013  Francisco Jose Monaco   <monaco.fj@gmail.com>
+dnl
+dnl    This file is part of Foo. 
+dnl
+dnl    Foo is free software: you can redistribute it and/or modify
+dnl    it under the terms of the GNU General Public License as published by
+dnl    the Free Software Foundation, either version 3 of the License, or
+dnl    (at your option) any later version.
+dnl
+dnl    Foo is distributed in the hope that it will be useful,
+dnl    but WITHOUT ANY WARRANTY; without even the implied warranty of
+dnl    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+dnl    GNU General Public License for more details.
+dnl
+dnl    You should have received a copy of the GNU General Public License
+dnl    along with .  If not, see <http://www.gnu.org/licenses/>.
+dnl
+
 AC_INIT([libhak], [0.1], [monaco.fj@gmail.com])
 AC_PREREQ([2.65])			 dnl Required autoconf version
 AC_CONFIG_AUX_DIR([build-aux])		 dnl Where to write auxiliary files
@@ -8,17 +28,8 @@ LT_INIT					 dnl Add libtool support to 'configure'
 
 
 
-
 AC_LANG_C				 dnl Use C compilation tests for C 
 AC_PROG_CC				 dnl Defines CC (gcc if available)
-
-dnl Ensure we have a suitable C compiler 
-dnl (Seems to add --std=gnu99, and we don't want it.)
-dnl
-dnl AC_PROG_CC_C99				 dnl Ensure CC supports C99
-dnl if test "x$ac_cv_prog_cc_c99" = xno; then
-dnl     AC_MSG_ERROR([Your compiler lacks sufficient C99 support])
-dnl fi
 
 
 dnl Ensure POSIX threads
@@ -35,8 +46,8 @@ AC_HEADER_STDC
 
 dnl Stick to ANSI + Posix
 
-HAK_CPPFLAGS="-ansi -D_POSIX_SOURCE -Wall -Werror --pedantic-error"
-HAK_CFLAGS="-ansi -D_POSIX_SOURCE -Wall -Werror --pedantic-error" 
+HAK_CPPFLAGS="-ansi -D_POSIX_SOURCE -Wall -Werror --pedantic-errors"
+HAK_CFLAGS="-ansi -D_POSIX_SOURCE -Wall -Werror --pedantic-errors" 
 
 CPPFLAGS="$HAK_CPPFLAGS $CPPFLAGS"
 CFLAGS="$HAK_CFLAGS $CFLAGS"
@@ -44,10 +55,10 @@ AC_SUBST([HAK_CPPFLAGS])
 AC_SUBST([HAK_CFLAGS])		    
 
 dnl Function replacements for ANSI+Posix compliance.
+dnl Ad hoc way (we might use Gnulib instead)
 
 AC_CONFIG_LIBOBJ_DIR([replace])
 AC_CHECK_DECLS([strdup],[],[AC_LIBOBJ(strdup)])
-
 
 
 dnl Check for doxygen

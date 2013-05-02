@@ -15,9 +15,27 @@
 
 @SET_MAKE@
 
-# We want libhak to work with ansi-compliant C code.
-# AM_CFLAGS = -Wall  --pedantic
-# AM_CPPFLAGS = -Wall  --pedantic -I$(srcdir)/../lib
+#  Makefile.am - For ad hoc tests
+#    
+#    Copyright 2013  Francisco Jose Monaco   <monaco.fj@gmail.com>
+#
+#    This file is part of Foo. 
+#
+#    Foo is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    Foo is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with .  If not, see <http://www.gnu.org/licenses/>.
+#
+
+# Compiler flags
 
 VPATH = @srcdir@
 pkgdatadir = $(datadir)/@PACKAGE@
@@ -55,11 +73,12 @@ CONFIG_CLEAN_VPATH_FILES =
 PROGRAMS = $(noinst_PROGRAMS)
 am_test_core_OBJECTS = test-core.$(OBJEXT)
 test_core_OBJECTS = $(am_test_core_OBJECTS)
+test_core_LDADD = $(LDADD)
 test_core_DEPENDENCIES = ../lib/libhak.la
 am_test_sysfun_OBJECTS = test-sysfun.$(OBJEXT)
 test_sysfun_OBJECTS = $(am_test_sysfun_OBJECTS)
-LIBOBJDIR = ../replace/
-test_sysfun_DEPENDENCIES = ../lib/libhak.la @LIBOBJS@
+test_sysfun_LDADD = $(LDADD)
+test_sysfun_DEPENDENCIES = ../lib/libhak.la
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/build-aux/depcomp
 am__depfiles_maybe = depfiles
@@ -194,10 +213,13 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AM_CFLAGS = @HAK_CFLAGS@
 AM_CPPFLAGS = @HAK_CPPFLAGS@ -I$(srcdir)/../lib
+
+# Test sources (for now, ad hoc tests)
 test_core_SOURCES = test-core.c
-test_core_LDADD = ../lib/libhak.la
 test_sysfun_SOURCES = test-sysfun.c
-test_sysfun_LDADD = ../lib/libhak.la @LIBOBJS@
+
+# Unless otherwise specified, all tests are linked to these
+LDADD = ../lib/libhak.la 
 all: all-am
 
 .SUFFIXES:
@@ -254,7 +276,6 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
-@AMDEP_TRUE@@am__include@ @am__quote@../replace/$(DEPDIR)/strdup.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-core.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/test-sysfun.Po@am__quote@
 
@@ -389,7 +410,6 @@ install-strip:
 	  `test -z '$(STRIP)' || \
 	    echo "INSTALL_PROGRAM_ENV=STRIPPROG='$(STRIP)'"` install
 mostlyclean-generic:
-	-test -z "$(LIBOBJS)" || rm -f $(LIBOBJS)
 
 clean-generic:
 
@@ -406,7 +426,7 @@ clean-am: clean-generic clean-libtool clean-noinstPROGRAMS \
 	mostlyclean-am
 
 distclean: distclean-am
-	-rm -rf ../replace/$(DEPDIR) ./$(DEPDIR)
+	-rm -rf ./$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-tags
@@ -452,7 +472,7 @@ install-ps-am:
 installcheck-am:
 
 maintainer-clean: maintainer-clean-am
-	-rm -rf ../replace/$(DEPDIR) ./$(DEPDIR)
+	-rm -rf ./$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 
@@ -486,6 +506,8 @@ uninstall-am:
 	mostlyclean-compile mostlyclean-generic mostlyclean-libtool \
 	pdf pdf-am ps ps-am tags uninstall uninstall-am
 
+
+# Clean custom garbage
 
 .PHONY clean-garbage:
 	rm -rf $(CUSTOM_GARBAGE)

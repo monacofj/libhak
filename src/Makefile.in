@@ -15,6 +15,28 @@
 
 @SET_MAKE@
 
+#  Makefile.am - For libhak utility programs
+#    
+#    Copyright 2013  Francisco Jose Monaco   <monaco.fj@gmail.com>
+#
+#    This file is part of Foo. 
+#
+#    Foo is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    Foo is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with .  If not, see <http://www.gnu.org/licenses/>.
+#
+
+# Compiler flags
+
 VPATH = @srcdir@
 pkgdatadir = $(datadir)/@PACKAGE@
 pkgincludedir = $(includedir)/@PACKAGE@
@@ -52,6 +74,7 @@ am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
 am_hak_info_OBJECTS = hak-info.$(OBJEXT)
 hak_info_OBJECTS = $(am_hak_info_OBJECTS)
+hak_info_LDADD = $(LDADD)
 hak_info_DEPENDENCIES = ../lib/libhak.la
 DEFAULT_INCLUDES = -I.@am__isrc@ -I$(top_builddir)
 depcomp = $(SHELL) $(top_srcdir)/build-aux/depcomp
@@ -188,7 +211,9 @@ top_srcdir = @top_srcdir@
 AM_CFLAGS = @HAK_CFLAGS@
 AM_CPPFLAGS = @HAK_CPPFLAGS@ -I$(srcdir)/../lib
 hak_info_SOURCES = hak-info.c
-hak_info_LDADD = ../lib/libhak.la
+
+# Unless otherwise specified, all tests are linked to these
+LDADD = ../lib/libhak.la 
 all: all-am
 
 .SUFFIXES:
@@ -508,6 +533,8 @@ uninstall-am: uninstall-binPROGRAMS
 	pdf pdf-am ps ps-am tags uninstall uninstall-am \
 	uninstall-binPROGRAMS
 
+
+# Clean custom garbage
 
 .PHONY clean-garbage:
 	rm -rf $(CUSTOM_GARBAGE)

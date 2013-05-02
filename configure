@@ -10361,7 +10361,6 @@ CC="$lt_save_CC"
 
 
 
-
 ac_ext=c
 ac_cpp='$CPP $CPPFLAGS'
 ac_compile='$CC -c $CFLAGS $CPPFLAGS conftest.$ac_ext >&5'
@@ -11037,7 +11036,6 @@ fi
 
 
 
-
 { $as_echo "$as_me:${as_lineno-$LINENO}: checking for ANSI C header files" >&5
 $as_echo_n "checking for ANSI C header files... " >&6; }
 if test "${ac_cv_header_stdc+set}" = set; then :
@@ -11152,8 +11150,8 @@ fi
 
 
 
-HAK_CPPFLAGS="-ansi -D_POSIX_SOURCE -Wall -Werror --pedantic-error"
-HAK_CFLAGS="-ansi -D_POSIX_SOURCE -Wall -Werror --pedantic-error"
+HAK_CPPFLAGS="-ansi -D_POSIX_SOURCE -Wall -Werror --pedantic-errors"
+HAK_CFLAGS="-ansi -D_POSIX_SOURCE -Wall -Werror --pedantic-errors"
 
 CPPFLAGS="$HAK_CPPFLAGS $CPPFLAGS"
 CFLAGS="$HAK_CFLAGS $CFLAGS"
@@ -11182,7 +11180,6 @@ else
 esac
 
 fi
-
 
 
 
