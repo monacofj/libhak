@@ -29,7 +29,11 @@ LT_INIT					 dnl Add libtool support to 'configure'
 
 
 AC_LANG_C				 dnl Use C compilation tests for C 
-AC_PROG_CC				 dnl Defines CC (gcc if available)
+AC_PROG_CC				 dnl Defines CC 
+if test "$GCC" != "xyes"; then
+   AC_MSG_WARN([CC not $CC: you may need to manually ajust compiler options.])
+fi
+
 
 
 dnl Ensure POSIX threads
@@ -40,14 +44,11 @@ dnl LIBS="$PTHREAD_LIBS $LIBS"
 dnl CFLAGS="$CFLAGS $PTHREAD_CFLAGS"
 dnl CC="$PTHREAD_CC"
 
-dnl Standard headers
 
-AC_HEADER_STDC
+dnl Stick to Ansi-C89/ISO-C90 + Posix
 
-dnl Stick to ANSI + Posix
-
-HAK_CPPFLAGS="-ansi -D_POSIX_SOURCE -Wall -Werror --pedantic-errors"
-HAK_CFLAGS="-ansi -D_POSIX_SOURCE -Wall -Werror --pedantic-errors" 
+HAK_CPPFLAGS="-std=c89 -D_POSIX_SOURCE -Wall -Werror --pedantic-errors"
+HAK_CFLAGS="-std=c89 -D_POSIX_SOURCE -Wall -Werror --pedantic-errors" 
 
 CPPFLAGS="$HAK_CPPFLAGS $CPPFLAGS"
 CFLAGS="$HAK_CFLAGS $CFLAGS"
@@ -60,6 +61,8 @@ dnl Ad hoc way (we might use Gnulib instead)
 AC_CONFIG_LIBOBJ_DIR([replace])
 AC_CHECK_DECLS([strdup],[],[AC_LIBOBJ(strdup)])
 
+HAK_REPLACE=${LIBOBJS/.o/}
+AC_SUBST([HAK_REPLACE])
 
 dnl Check for doxygen
 

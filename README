@@ -9,6 +9,13 @@
 	processing command line options and so on.  They are ready at hand with
 	libhak.  And there is no more excuses to coding in some other "easy" language.
 
+	Warning:
+
+	As of this writing Libhak is a work on progress in its early alpha 
+	stage. That means: things may not work and the source is only useful
+	for the library's developers.
+
+
 	THE WHOLE HISTORY
 
 	Libhak may stand for either "Handy Army Knife" or "Hackers Army Knife",
@@ -23,10 +30,6 @@
 	
 	* Libhak if free software; see COPYING.LESSER for license information.
 
-	* As of this writing Libhak is a work on progress in its early alpha 
-	  stage. That means: things may not work and the source is only useful
-	   for the library's developers.
-
 	* Building and installing: refer to INSTALL. 
 	  Quick start: ./configure && make && make install. 
 
@@ -35,6 +38,8 @@
 	
 	* This document will be updated as soon as libhak turns into beta.
 	
+	DEVELOPERS
 
+	* Refer to file DEVELOPERS.
 
 	

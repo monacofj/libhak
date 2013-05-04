@@ -32,17 +32,20 @@
 # augmented the interface (new functions)	CURRENT+1 : 0 : AGE+1
 # broken old interface (e.g. removed functions) 	CURRENT+1 : 0 : 0
 
+
+HAK_VERSIONING=0:0:0
+
 # Compiler flags
 
-AM_CFLAGS =  @HAK_CFLAGS@
+AM_CFLAGS =  @HAK_CFLAGS@ -DHAK_REPLACED="\"@HAK_REPLACE@\""
 AM_CPPFLAGS = @HAK_CPPFLAGS@ -include ${top_srcdir}/replace/replace.h
 
 # The libhak library.
 
-lib_LTLIBRARIES = libhak.la			# Target
-libhak_la_SOURCES = core.c  sysfun.c messages.c	# Sources
-libhak_la_LDFLAGS = -version-info 0:0:0		# Linker flags
-libhak_la_LIBADD = @LIBOBJS@			# Replacement functions
+lib_LTLIBRARIES = libhak.la				# Target
+libhak_la_SOURCES = core.c  sysfun.c messages.c		# Sources
+libhak_la_LDFLAGS = -version-info $(HAK_VERSIONING) 	# Linker flags
+libhak_la_LIBADD = @LIBOBJS@				# Replacement functions
 
 # The lihak headers.
 

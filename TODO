@@ -3,16 +3,22 @@
 # Once something is fixed, please remove the corresponding entry.
 
 
-2013-04-20 - Monaco
+2013-05-02 - Monaco
 	   
-	   * Distcheck was not workinb because of buggy documentation building systems
-	   * Disabled documentation building: create configure option --no-doc
-
-2013-04-21 - Monaco
-	   
-	   * For now, some ad hoc test programns in test/. A proper test suit would be nice.
+	   * Gettextize messages
 
 2013-05-01 - Monaco
 
-	   * hak_sysnfatal might return immediatelly with a given value.
+	   * hak_sysnfatal might return immediately with a given value instead of exiting.
+
+2013-04-21 - Monaco
+	   
+	   * For now, some ad hoc test programs in test/. A proper test suit would be nice.
+
+2013-04-20 - Monaco
+	   
+	   * distcheck was not working because of buggy documentation building systems. Fix it.
+	   * Disabled documentation building.
+	   * Create configure option --with-doc
+
 

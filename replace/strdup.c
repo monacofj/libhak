@@ -19,15 +19,20 @@
 
 */
 
+
 #include <config.h>
 #include <stdlib.h>
 #include <string.h>
 
-#define STRDUP_STRING "Ad hoc strdup"
+/* Replacement for strdup. */
+
 char *strdup (const char *string)
 {
   char *new;
-  new = malloc (sizeof (STRDUP_STRING)+1);
-  memcpy (new, STRDUP_STRING, sizeof (STRDUP_STRING));
+  int len;
+  len = strlen(string)+1;
+  new = malloc (len);	
+  if (new)           /* Hopefully, malloc would set errno=ENOMEM upon falure.*/
+    memcpy (new, string, len);
   return new;
 }

@@ -39,5 +39,7 @@ int main (int argc, char **argv)
 
   printf ("Program name: %s\n", hak_engine.program_name);
 
+  printf ("Replaced functions: %s\n", hak_replaced);
+
   return EXIT_SUCCESS;
 }

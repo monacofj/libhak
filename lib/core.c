@@ -111,11 +111,11 @@ int hak_plog (const char *format, ...)
 }
 
 
+const char *hak_replaced = HAK_REPLACED;
+
 /* 
  * Non-public functions and variables.
  */
-
-
 
 
 

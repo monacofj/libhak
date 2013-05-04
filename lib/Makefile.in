@@ -48,8 +48,6 @@
 # augmented the interface (new functions)	CURRENT+1 : 0 : AGE+1
 # broken old interface (e.g. removed functions) 	CURRENT+1 : 0 : 0
 
-# Compiler flags
-
 
 VPATH = @srcdir@
 pkgdatadir = $(datadir)/@PACKAGE@
@@ -160,6 +158,7 @@ FGREP = @FGREP@
 GREP = @GREP@
 HAK_CFLAGS = @HAK_CFLAGS@
 HAK_CPPFLAGS = @HAK_CPPFLAGS@
+HAK_REPLACE = @HAK_REPLACE@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -247,14 +246,17 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-AM_CFLAGS = @HAK_CFLAGS@
+HAK_VERSIONING = 0:0:0
+
+# Compiler flags
+AM_CFLAGS = @HAK_CFLAGS@ -DHAK_REPLACED="\"@HAK_REPLACE@\""
 AM_CPPFLAGS = @HAK_CPPFLAGS@ -include ${top_srcdir}/replace/replace.h
 
 # The libhak library.
-lib_LTLIBRARIES = libhak.la			# Target
-libhak_la_SOURCES = core.c  sysfun.c messages.c	# Sources
-libhak_la_LDFLAGS = -version-info 0:0:0		# Linker flags
-libhak_la_LIBADD = @LIBOBJS@			# Replacement functions
+lib_LTLIBRARIES = libhak.la				# Target
+libhak_la_SOURCES = core.c  sysfun.c messages.c		# Sources
+libhak_la_LDFLAGS = -version-info $(HAK_VERSIONING) 	# Linker flags
+libhak_la_LIBADD = @LIBOBJS@				# Replacement functions
 
 # The lihak headers.
 nobase_include_HEADERS = libhak.h libhak/sysfun.h

@@ -115,5 +115,6 @@ int hak_log (const char *, ...);
 /* Program log (same as log with hak_engine.symbol prepended to it. */
 int hak_plog (const char *, ...);
 
+const char *hak_replaced;
 
 #endif	/* _LIBHAK_H */
