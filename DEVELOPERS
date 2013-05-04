@@ -1,0 +1,44 @@
+
+  FOR LIBHAK DEVELOPERS
+
+  This document shall be further elaborated with in-depth information on libhak 
+  internals and detailed instructions for developers and contributors in general.
+
+  For now, a few quick notes (here in added in the order they have come forth
+  as issues during the project development so far.)
+
+  * Philosophy
+
+  Libhak is a convenience library of tools often needed by C programmers, and it
+  is supposed to be built exclusively on top of standard libc. No other library
+  should be used to implement libhak functionality.
+
+  * Development environemnt
+
+  Libhack's official development environment is based the GNU tools. Currently: 
+  autoconf >=2.65, automake >=1.11.1, libool 2.2.6b, make >=3.81, glibc >=2.0.
+  
+  * Target platforms
+
+  Currently libhak is being written for standard GNU/Linux platform, but aiming
+  at portability for POSIX operating systems.  As of this writing no porting 
+  is on progress for other platforms. 
+
+  * On standards
+
+  Libhak is currently aimed at strict compliance to ANSI-C89/ISO-C90 standard
+  plus conforming POSIX standards.  When contributing code, bear that in mind
+  and refrain from using extensions.  Do not relax the flags in lib/Makefile.am.
+  If needed, write replacement functions.  Despite our enthusiastic appreciation 
+  for GNU extensions for libhak we, heartsick, refrain from using them, both 
+  for compiler and library resources.
+
+  * Replacement functions 
+
+  Replacement functions shall behave exactly as standard libc functions
+  This include return value on errors and setting errno variable. When writing 
+  replacement functions, use standard libc functions,not libhak functions.
+ 
+ 
+  
+  
