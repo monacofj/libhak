@@ -21,26 +21,30 @@
 
 #define HAK_SYSFATAL HAK_FALSE
 
+#include <libhak.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <libhak.h>
+
 
 int main (int argc, char **argv)
 {
   int i;
-
+  
   hak_initialize(argc, argv);
 
+  printf ("Program name: %s, ", hak_engine.program_name);
+
+  printf ("with %d args: ", hak_engine.argc);
+
   for (i=0; i<argc; i++)
-    printf ("argv[%d]: %s\n", i, hak_engine.argv[i]);
+    printf ("argv[%d]: %s ", i, hak_engine.argv[i]);
+  printf ("\n");
 
-  printf ("Program name: %s\n", hak_engine.program_name);
+  hak_sysfault(1);
 
-  hak_log ("%s %d %d %d\n", "Hello", 1, 2, 3);
+  hak_debug (i!=0, NULL);
 
-  hak_plog ("%d is a nice number\n", 7);
-
-  hak_syserror(1);
+  hak_assert (1, hak_error_null, 1);
 
   printf ("I'm here.\n");
 

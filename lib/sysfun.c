@@ -19,38 +19,53 @@
 
 */
 
+#include <libhak.h>
+#include <libhak/sysfun.h>
+
 #include <config.h>
 #include <stdlib.h>
 #include <string.h>
 #include <stdarg.h>
 
+/* LIBHAK CONVENTIONS FOR SYSTEM FUNCTIONS
+
+   Wrapper functions shall have the same interface than the corresponding
+   standard functions, and also shall behave the same on success, producing
+   the same result.
+
+   All standard library calls shall be checked with hak_syserror, marco
+   and the behaviour will be determined by action taken by it.
+
+   If there are invalid parameters prone to cause standard library failure,
+   it is strongly encouraged that those be checked with hak_error macro, 
+   and the behaviour will be determined by the action taken by it.
+
+ */
+
 #include <libhak.h>
-#include <libhak/sysfun.h>
+
+/* On sucess, works like malloc. */
 
 void *hak_malloc(size_t size)
 {
   void *block;
   block = malloc (size);
-  hak_syserror (!size);
+  hak_sysfault (!block);
   return block;
 }
 
 
+/*  */
+
 char * hak_strdup (const char *string)
 {
   char *new_string;
-  /* size_t length; */
 
-  hak_error (!string, hak_error_null); /* Assert if string is non NULL. */
-
+  /* hak_assert (!string, hak_error_null, NULL); /\* Assert if string is non NULL. *\/ */
 
   new_string = strdup (string);
+  hak_sysfault (!new_string);
 
-  /* length = strlen (string); */
-  /* new_string = hak_malloc () */
-
-
-  hak_syserror (!new_string);
   return new_string;
 }
 

@@ -24,7 +24,20 @@
 
 /* Error messages for hak_engine.error. */
 
+
 const char *hak_error_messages[] =
   {
+    "Success",			/* hak_error_none. */
     "Argument NULL not valid",	/* hak_error_null. */
   };
+
+/* Log symbols */
+
+const char* hak_symbols[] = 
+  {
+    "Log: ",
+    "System: ",
+    "Assert :",
+    "Debug :",
+  };
+

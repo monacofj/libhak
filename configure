@@ -11046,9 +11046,7 @@ fi
 HAK_CPPFLAGS="-std=c89 -D_POSIX_SOURCE -Wall -Werror --pedantic-errors"
 HAK_CFLAGS="-std=c89 -D_POSIX_SOURCE -Wall -Werror --pedantic-errors"
 
-CPPFLAGS="$HAK_CPPFLAGS $CPPFLAGS"
-CFLAGS="$HAK_CFLAGS $CFLAGS"
-
+CPPFLAGS="$HAK_CPPFLAGS" CFLAGS="$HAK_CFLAGS"
 
 
 

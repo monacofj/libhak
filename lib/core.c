@@ -77,8 +77,11 @@ int hak_initialize (int argc, char **argv)
 
   /* Log symbol. */
 
-  hak_engine.logsymbol = hak_strdup (hak_engine.program_name);
-
+  hak_engine.symbol_log = (char*) hak_symbols[hak_symbol_log];
+  hak_engine.symbol_sysfault = (char *) hak_symbols[hak_symbol_sysfault];
+  hak_engine.symbol_assert = (char *) hak_symbols[hak_symbol_assert];
+  hak_engine.symbol_debug = (char *) hak_symbols[hak_symbol_debug];
+  
 
   /* Default log stream; */
 
@@ -105,7 +108,7 @@ int hak_plog (const char *format, ...)
   va_list ap;
   int n;
   va_start (ap, format);
-  n = fprintf (hak_engine.logstream, "%s ", hak_engine.logsymbol);
+  n = fprintf (hak_engine.logstream, "%s ", hak_engine.symbol_log);
   n = vfprintf (hak_engine.logstream, format, ap);
   return n;
 }

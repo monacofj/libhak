@@ -50,8 +50,8 @@ dnl Stick to Ansi-C89/ISO-C90 + Posix
 HAK_CPPFLAGS="-std=c89 -D_POSIX_SOURCE -Wall -Werror --pedantic-errors"
 HAK_CFLAGS="-std=c89 -D_POSIX_SOURCE -Wall -Werror --pedantic-errors" 
 
-CPPFLAGS="$HAK_CPPFLAGS $CPPFLAGS"
-CFLAGS="$HAK_CFLAGS $CFLAGS"
+CPPFLAGS="$HAK_CPPFLAGS" dnl Was CPPFLAGS
+CFLAGS="$HAK_CFLAGS"	      dnl Was CFLAGS
 AC_SUBST([HAK_CPPFLAGS])
 AC_SUBST([HAK_CFLAGS])		    
 
