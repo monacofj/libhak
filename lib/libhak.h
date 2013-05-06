@@ -78,7 +78,9 @@ int hak_initialize (int, char **);
 #define HAK_ASSERT_FATAL HAK_TRUE	
 #endif
 
-/* If HAD_DEVMODE, all error checks are nonfatal.  */
+/* 
+   If HAD_DEVMODE, all error checks are nonfatal.  
+*/
 #ifdef HAK_DEVMODE 
 #undef HAK_SYSFAULT_FATAL
 #undef HAK_DEBUG
@@ -134,7 +136,7 @@ extern const char* hak_error_messages[];
 
 typedef enum 
   {
-    hak_symbol_log,	
+    hak_symbol_log=0,	
     hak_symbol_sysfault,
     hak_symbol_assert,
     hak_symbol_debug
@@ -196,33 +198,8 @@ extern const char* hak_symbols[];
 #endif
 
 
-/* /\* Libhak fatal. *\/ */
-/* #define hak_debug_fatal(expression, error_message) do{if (expression) {fprintf (stderr, "%s: %s: %d: %s (hak)\n", hak_engine.program_name, __FILE__, __LINE__, error_message); exit (EXIT_FAILURE);}}while(0) */
-
-/* /\* Libhak non-fatal. *\/ */
-/* #define hak_debug_nonfatal(expression, error_message) do{ if (expression) {fprintf (stderr, "%s: %s: %d: %s\n", hak_engine.program_name, __FILE__, __LINE__, error_message);}}while(0) */
-
-/* /\* Libhak error: fatal if HAK_FATAL is defined; nonfatal oterwise. */
-/*    HAK_FATAL is true by default. *\/ */
-/* #if (HAK_DEBUG_FATAL != HAK_FALSE) */
-/* #define hak_debug(expression, message) hak_debug_fatal(expression, message) */
-/* #else */
-/* #define hak_debug(expression, message) hak_debug_nonfatal(expression, message) */
-/* #endif	/\* HAK_FATAL *\/ */
-
-/* #if (HAK_DEBUG == FALSE) */
-/* #undef hak_debug */
-/* #define hak_debug(expression, errror) while(0) */
-/* #endif */
-
-
-
-
-/* Log. */
+/* Libhak log: general log messages (variable arguments) */
 int hak_log (const char *, ...);
-
-/* Program log (same as log with hak_engine.symbol prepended to it. */
-int hak_plog (const char *, ...);
 
 const char *hak_replaced;
 

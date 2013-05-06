@@ -90,25 +90,15 @@ int hak_initialize (int argc, char **argv)
   return EXIT_SUCCESS;
 }
 
-/* Log */
+
+/* Program Log (prepend program name)*/
 
 int hak_log (const char *format, ...)
 {
   va_list ap;
   int n;
   va_start (ap, format);
-  n = vfprintf (hak_engine.logstream, format, ap);
-  return n;
-}
-
-/* Program Log (prepend program name)*/
-
-int hak_plog (const char *format, ...)
-{
-  va_list ap;
-  int n;
-  va_start (ap, format);
-  n = fprintf (hak_engine.logstream, "%s ", hak_engine.symbol_log);
+  n = fprintf (hak_engine.logstream, "%s", hak_engine.symbol_log);
   n = vfprintf (hak_engine.logstream, format, ap);
   return n;
 }

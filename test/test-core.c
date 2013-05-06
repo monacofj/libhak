@@ -40,6 +40,8 @@ int main (int argc, char **argv)
     printf ("argv[%d]: %s ", i, hak_engine.argv[i]);
   printf ("\n");
 
+  hak_log ("Log number %d\n", 1);
+
   hak_sysfault(1);
 
   hak_debug (i!=0, NULL);
