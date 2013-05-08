@@ -22,6 +22,8 @@
 #ifndef _LIBHAK_SYSFUN_H
 #define _LIBHAK_SYSFUN_H
 
+#include <config.h>
+
 /* Wrapper for malloc */
 void * hak_malloc(size_t size);
 

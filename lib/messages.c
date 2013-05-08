@@ -19,6 +19,9 @@
 
 */
 
+#include <config.h>
+#include <libhak.h>
+
 /* TODO: gettextize libhak messages. */
 
 

@@ -24,8 +24,8 @@
 #include <string.h>
 #include <stdarg.h>
 
+#include <config.h>
 #include <libhak.h>
-#include <libhak/sysfun.h>
 
 /* 
  *  Global variables. 

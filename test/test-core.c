@@ -19,11 +19,10 @@
 
 */
 
-#define HAK_SYSFATAL HAK_FALSE
 
-#include <libhak.h>
 #include <stdio.h>
 #include <stdlib.h>
+#include <libhak.h>
 
 
 int main (int argc, char **argv)

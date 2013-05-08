@@ -22,7 +22,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <libhak.h>
-#include <libhak/sysfun.h>
 
 
 int main (int argc, char **argv)

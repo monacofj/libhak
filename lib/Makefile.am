@@ -38,7 +38,7 @@ HAK_VERSIONING=0:0:0
 # Compiler flags
 
 AM_CFLAGS =  @HAK_CFLAGS@ -DHAK_REPLACED="\"@HAK_REPLACE@\""
-AM_CPPFLAGS = @HAK_CPPFLAGS@ -include ${top_srcdir}/replace/replace.h
+AM_CPPFLAGS = @HAK_CPPFLAGS@ -include ${top_srcdir}/replace/replace.h 
 
 # The libhak library.
 
@@ -49,7 +49,7 @@ libhak_la_LIBADD = @LIBOBJS@				# Replacement functions
 
 # The lihak headers.
 
-nobase_include_HEADERS = libhak.h libhak/sysfun.h
+nobase_include_HEADERS = libhak.h libhak/core.h libhak/sysfun.h libhak/messages.h
 
 
 # Clean custom garbage
