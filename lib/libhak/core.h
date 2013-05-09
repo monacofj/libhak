@@ -38,8 +38,8 @@ struct hak_engine_t
   FILE *logstream;		/* Where to log messages. */
   char *symbol_log;		/* Log symbol. */
   char *symbol_sysfault;	/* Sysfault log symbol. */
+  char *symbol_verify;		/* Verify log symbol. */
   char *symbol_assert;		/* Assert log symbol. */
-  char *symbol_debug;		/* Debug log symbol. */
 };
 
 extern hak_engine_t hak_engine;

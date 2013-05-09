@@ -79,8 +79,8 @@ int hak_initialize (int argc, char **argv)
 
   hak_engine.symbol_log = (char*) hak_symbols[hak_symbol_log];
   hak_engine.symbol_sysfault = (char *) hak_symbols[hak_symbol_sysfault];
+  hak_engine.symbol_verify = (char *) hak_symbols[hak_symbol_verify];
   hak_engine.symbol_assert = (char *) hak_symbols[hak_symbol_assert];
-  hak_engine.symbol_debug = (char *) hak_symbols[hak_symbol_debug];
   
 
   /* Default log stream; */

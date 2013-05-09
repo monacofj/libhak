@@ -65,7 +65,7 @@ char * hak_strdup (const char *string)
 {
   char *new_string;
 
-  /* hak_assert (!string, hak_error_null, NULL); /\* Assert if string is non NULL. *\/ */
+  /* hak_verify (!string, hak_error_null, NULL); /\* Assert if string is non NULL. *\/ */
 
   new_string = strdup (string);
   hak_sysfault (!new_string);

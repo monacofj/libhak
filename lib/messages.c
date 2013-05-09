@@ -30,8 +30,8 @@
 
 const char *hak_error_messages[] =
   {
-    "Success",			/* hak_error_none. */
-    "Argument NULL not valid",	/* hak_error_null. */
+    "Success",			/* hak_verify_ok. */
+    "Invalid argument",	        /* hak_verify_invalid_argument. */
   };
 
 /* Log symbols */
@@ -40,7 +40,7 @@ const char* hak_symbols[] =
   {
     "Log: ",
     "System: ",
+    "Verify :",
     "Assert :",
-    "Debug :",
   };
 
