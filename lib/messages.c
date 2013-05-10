@@ -53,8 +53,8 @@ int hak_log (const char *format, ...)
   va_list ap;
   int n;
   va_start (ap, format);
-  n = fprintf (hak_engine.logstream, "%s", hak_engine.symbol_log);
-  n = vfprintf (hak_engine.logstream, format, ap);
+  n = fprintf (hak_engine.log_stream, "%s", hak_engine.symbol_log);
+  n = vfprintf (hak_engine.log_stream, format, ap);
   return n;
 }
 

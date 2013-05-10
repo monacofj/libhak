@@ -22,9 +22,12 @@
 #ifndef _LIBHAK_H
 #define _LIBHAK_H
 
-#include <config.h>
-#include <libhak/core.h>
-#include <libhak/messages.h>
-#include <libhak/sysfun.h>
+/* libhak.h is just a convenience header used to actually include the core
+   headers corresponding to the core facilities of libhak. */
+
+#include <config.h>		/* Autoconf's config.h */
+#include <libhak/core.h>	/* libhak's core engine. */
+#include <libhak/messages.h>	/* Fault report and logging messagens. */
+#include <libhak/sysfun.h>	/* Convenience wrapping system functions. */
 
 #endif	/* _LIBHAK_H */

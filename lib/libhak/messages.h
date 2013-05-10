@@ -81,13 +81,13 @@
    and optionally exit with EXIT_FAILURE.
  */
 
-/* System fatal error. */
-#define hak_sysfault_fatal(expression) do{ if (expression) {fprintf (stderr, "%s%s: %s: %d: %s\n", hak_symbol_string(sysfault),hak_engine.program_name, __FILE__, __LINE__, strerror(errno)); exit (EXIT_FAILURE);}}while(0)
+/* Fatal. */
+#define hak_sysfault_fatal(expression) do{ if (expression) {fprintf (hak_engine.sysfault_stream, "%s%s: %s: %d: %s\n", hak_symbol_string(sysfault),hak_engine.program_name, __FILE__, __LINE__, strerror(errno)); exit (EXIT_FAILURE);}}while(0)
 
-/* System non-fatal error. */
-#define hak_sysfault_nonfatal(expression) do{ if (expression) {fprintf (stderr,"%s%s: %s: %d: %s\n", hak_symbol_string(sysfault), hak_engine.program_name, __FILE__, __LINE__, strerror(errno));}}while(0)
+/* Non-fatal.. */
+#define hak_sysfault_nonfatal(expression) do{ if (expression) {fprintf (hak_engine.sysfault_stream, "%s%s: %s: %d: %s\n", hak_symbol_string(sysfault), hak_engine.program_name, __FILE__, __LINE__, strerror(errno));}}while(0)
 
-/* System error: fatal if HAK_SYSFATAL is defined; non-fatal oterwise. 
+/* System fault: fatal if HAK_SYSFATAL is defined; non-fatal oterwise. 
    HAK_SYSFATAL is true by default. */
 
 #if (HAK_SYSFAULT_FATAL != HAK_FALSE) 
@@ -98,7 +98,8 @@
 
 
 
-/* Values of hak_engine.errno */
+/* Values of hak_engine.errno
+   Similar to errno from errno.h, but specific for hak functions.*/
 
 typedef enum
   {
@@ -106,11 +107,11 @@ typedef enum
     hak_verify_fault		         /* Unspecified fault. */
   } hak_verify_code_t;
 
-extern const char* hak_error_messages[];
+extern const char* hak_error_messages[]; /* Strings for hak error codes. */
 
 #define _hak_set_error(error_code) do{hak_engine.error = error_code;}while(0)
 
-/* Log symbols */
+/* Log symbols: used by test macros bellow. */
 
 typedef enum 
   {
@@ -124,8 +125,6 @@ typedef enum
 extern const char* hak_symbols[]; 
 
 
-
-
 /* 
   Libhak verify: check for conditions prone to cause either runtime faults
   or incorrect results.  These may include calling a function with invalid 
@@ -137,9 +136,11 @@ extern const char* hak_symbols[];
 
  */
 
-#define hak_verify_fatal(expression, error_code) do{_hak_set_error(hak_verify_ok); if (expression) {_hak_set_error(hak_verify_fault); fprintf (stderr, "%s%s: %s: %d: %s\n", hak_symbol_string(verify), hak_engine.program_name, __FILE__, __LINE__, hak_error_messages[error_code]); exit (EXIT_FAILURE);}}while(0)
+/* Exit on fault. */
+#define hak_verify_fatal(expression, error_code) do{_hak_set_error(hak_verify_ok); if (expression) {_hak_set_error(hak_verify_fault); fprintf (hak_engine.verify_stream, "%s%s: %s: %d: %s\n", hak_symbol_string(verify), hak_engine.program_name, __FILE__, __LINE__, hak_error_messages[error_code]); exit (EXIT_FAILURE);}}while(0)
 
-#define hak_verify_nonfatal(expression, error_code, return_value) do{_hak_set_error(hak_verify_ok); if (expression) {_hak_set_error(hak_verify_fault); fprintf (stderr, "%s%s: %s: %d: %s\n", hak_symbol_string(verify), hak_engine.program_name, __FILE__, __LINE__, hak_error_messages[error_code]); return return_value;}}while(0)
+/* Don't exit. */
+#define hak_verify_nonfatal(expression, error_code, return_value) do{_hak_set_error(hak_verify_ok); if (expression) {_hak_set_error(hak_verify_fault); fprintf (hak_engine.verify_stream, "%s%s: %s: %d: %s\n", hak_symbol_string(verify), hak_engine.program_name, __FILE__, __LINE__, hak_error_messages[error_code]); return return_value;}}while(0)
 
 /* Libhak error: fatal if HAK_FATAL is defined; non-fatal otherwise. */
 
@@ -158,10 +159,11 @@ extern const char* hak_symbols[];
    and a customized 'error_message', it non NULL.  
  */
 
-#define hak_assert_fatal(expression, error_message) do{if (expression) {fprintf (stderr, "%s%s: %s: %d: %s %s\n", hak_symbol_string(assert), hak_engine.program_name, __FILE__, __LINE__, #expression, error_message ? error_message : ""); exit (EXIT_FAILURE);}}while(0)
+/* Exit on fault. */
+#define hak_assert_fatal(expression, error_message) do{if (expression) {fprintf (hak_engine.assert_stream, "%s%s: %s: %d: %s %s\n", hak_symbol_string(assert), hak_engine.program_name, __FILE__, __LINE__, #expression, error_message ? error_message : ""); exit (EXIT_FAILURE);}}while(0)
 
-
-#define hak_assert_nonfatal(expression, error_message) do{ if (expression) {fprintf (stderr, "%s%s: %s: %d: %s %s\n", hak_symbol_string(assert), hak_engine.program_name, __FILE__, __LINE__, #expression, error_message ? error_message : "");}}while(0)
+/* Dont exit. */
+#define hak_assert_nonfatal(expression, error_message) do{ if (expression) {fprintf (hak_engine.assert_stream, "%s%s: %s: %d: %s %s\n", hak_symbol_string(assert), hak_engine.program_name, __FILE__, __LINE__, #expression, error_message ? error_message : "");}}while(0)
 
 /* Libhak assert: fatal if HAK_FATAL is defined; nonfatal otherwise. */
    
@@ -190,15 +192,17 @@ extern const char* hak_symbols[];
 
  */
 
-#define hak_check_fatal(expression, error_message) do{ if (expression) {fprintf (stderr, "%s%s: %s: %d: %s\n", hak_symbol_string(check), hak_engine.program_name, __FILE__, __LINE__, error_message ? _(error_message) : ""); exit (EXIT_FAILURE);}}while(0)
+/* Exit on fault. */
+#define hak_check_fatal(expression, error_message) do{ if (expression) {fprintf (hak_engine.assert_stream, "%s%s: %s: %d: %s\n", hak_symbol_string(check), hak_engine.program_name, __FILE__, __LINE__, error_message ? _(error_message) : ""); exit (EXIT_FAILURE);}}while(0)
 
-#define hak_check_nonfatal(expression, error_message, return_value) do{ if (expression) {fprintf (stderr, "%s%s: %s: %d: %s\n", hak_symbol_string(check), hak_engine.program_name, __FILE__, __LINE__, error_message ? _(error_message): ""); return return_value;}}while(0)
+/* Return on fault. */
+#define hak_check_nonfatal(expression, error_message, return_value) do{ if (expression) {fprintf (hak_engine.assert_stream, "%s%s: %s: %d: %s\n", hak_symbol_string(check), hak_engine.program_name, __FILE__, __LINE__, error_message ? _(error_message): ""); return return_value;}}while(0)
 
 
 /* Libhak log: general log messages (variable arguments) */
 int hak_log (const char *, ...);
 
-const char *hak_replaced;
+const char *hak_replaced;	/* Missing system functions replaced by autoconf. */
 
 #endif /* _HAK_MESSAGES_H */
 

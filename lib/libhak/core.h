@@ -35,12 +35,16 @@ struct hak_engine_t
   char *program_name;		/* Program invocation short name. */
   int argc;			/* Number of command line arguments. */
   char **argv;			/* Pointer to the command line arguments. */
-  FILE *logstream;		/* Where to log messages. */
   char *symbol_log;		/* Log symbol. */
   char *symbol_sysfault;	/* Sysfault log symbol. */
   char *symbol_verify;		/* Verify log symbol. */
   char *symbol_assert;		/* Assert log symbol. */
   char *symbol_check;		/* Check log symbol. */
+  FILE *sysfault_stream;	/* Where to report sysfaults. */
+  FILE *verify_stream;		/* Where to report verifications. */
+  FILE *assert_stream;		/* Where to report assertions. */
+  FILE *log_stream;		/* Where to log messages. */
+
 };
 
 extern hak_engine_t hak_engine;

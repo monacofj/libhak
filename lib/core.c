@@ -84,7 +84,10 @@ int hak_initialize (int argc, char **argv)
 
   /* Default log stream; */
 
-  hak_engine.logstream = stderr; /* Standard error. */
+  hak_engine.sysfault_stream = stderr; /* Standard error. */
+  hak_engine.verify_stream = stderr; /* Standard error. */
+  hak_engine.assert_stream = stderr; /* Standard error. */
+  hak_engine.log_stream = stderr; /* Standard error. */
 
   return EXIT_SUCCESS;
 }
