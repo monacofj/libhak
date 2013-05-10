@@ -40,6 +40,7 @@ struct hak_engine_t
   char *symbol_sysfault;	/* Sysfault log symbol. */
   char *symbol_verify;		/* Verify log symbol. */
   char *symbol_assert;		/* Assert log symbol. */
+  char *symbol_check;		/* Check log symbol. */
 };
 
 extern hak_engine_t hak_engine;

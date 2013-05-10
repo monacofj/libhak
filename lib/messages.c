@@ -21,6 +21,7 @@
 
 #include <config.h>
 #include <libhak.h>
+#include <stdarg.h>
 
 /* TODO: gettextize libhak messages. */
 
@@ -31,7 +32,7 @@
 const char *hak_error_messages[] =
   {
     "Success",			/* hak_verify_ok. */
-    "Invalid argument",	        /* hak_verify_invalid_argument. */
+    "Unspecified fault",        /* hak_verify_fault. (generic) */
   };
 
 /* Log symbols */
@@ -42,5 +43,19 @@ const char* hak_symbols[] =
     "System: ",
     "Verify :",
     "Assert :",
+    "Check: "
   };
+
+/* Program Log (prepend program name)*/
+
+int hak_log (const char *format, ...)
+{
+  va_list ap;
+  int n;
+  va_start (ap, format);
+  n = fprintf (hak_engine.logstream, "%s", hak_engine.symbol_log);
+  n = vfprintf (hak_engine.logstream, format, ap);
+  return n;
+}
+
 

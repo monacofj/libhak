@@ -45,7 +45,7 @@ int main (int argc, char **argv)
 
   hak_assert (i!=0, NULL);
 
-  hak_verify (1, hak_verify_invalid_argument, 1);
+  hak_verify (i!=10, hak_verify_fault, 1);
 
   printf ("I'm here.\n");
 

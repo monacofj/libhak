@@ -27,26 +27,29 @@
 #include <string.h>
 
 /* 
-   Event report functions and macros. 
+   Macros controlling behavior of error reporting functions.
 */
 
+/* Whether hak_sysfault will call exit or not. */
 #ifndef HAK_SYSFAULT_FATAL
 #define HAK_SYSFAULT_FATAL HAK_TRUE	
 #endif
 
+/* Whether hak_assert will be compiled or not. */
 #ifndef HAK_ASSERT
 #define HAK_ASSERT HAK_TRUE
 #endif
-#ifndef HAK_ASSERT_FATAL
+#ifndef HAK_ASSERT_FATAL	/* Whether it will call exit or not. */
 #define HAK_ASSERT_FATAL HAK_FALSE	
 #endif
 
+/* Whether hak_verify will call exit or return. */
 #ifndef HAK_VERIFY_FATAL
 #define HAK_VERIFY_FATAL HAK_TRUE	
 #endif
 
 /* 
-   If HAD_DEVMODE, all error checks are nonfatal.  
+   If HAD_DEVMODE==1, all error checks are nonfatal.  
 */
 
 #if HAK_DEVMODE==1
@@ -61,13 +64,20 @@
 #endif
 
 
-/* #define hak_symbol_string(type) hak_engine.symbol_ ## type ? hak_engine.symbol _ ## type : "" */
-#define hak_symbol_string(type) (hak_engine.symbol_ ## type ? hak_engine.symbol_ ## type : "Bar ")
+/* Empty string if some logging symbol is NULL */
+
+#define hak_symbol_string(type) (hak_engine.symbol_ ## type ? hak_engine.symbol_ ## type : "")
+
+/* Provision for gettext (not currently implemented) 
+   It should be #define _(string) gettext(string) if HAVE_GETTEXT==1 
+*/
+
+#define _(string) string
 
 /* 
    Libhak sysfault: check and report system faults (syscall faults).
   
-   If 'expression' is true, report error messagem confirming errno variable,
+   If 'expression' is true, report error messagem conforming errno variable,
    and optionally exit with EXIT_FAILURE.
  */
 
@@ -90,10 +100,10 @@
 
 /* Values of hak_engine.errno */
 
-typedef enum 
+typedef enum
   {
-    hah_verify_ok,                       /* Success.*/
-    hak_verify_invalid_argument		 /* Argument NULL not valid. */
+    hak_verify_ok,                       /* Success.*/
+    hak_verify_fault		         /* Unspecified fault. */
   } hak_verify_code_t;
 
 extern const char* hak_error_messages[];
@@ -104,13 +114,17 @@ extern const char* hak_error_messages[];
 
 typedef enum 
   {
-    hak_symbol_log=0,	
+    hak_symbol_log,	
     hak_symbol_sysfault,
     hak_symbol_verify,
-    hak_symbol_assert
+    hak_symbol_assert,
+    hak_symbol_check
   } hak_symbol_t;
 
 extern const char* hak_symbols[]; 
+
+
+
 
 /* 
   Libhak verify: check for conditions prone to cause either runtime faults
@@ -118,38 +132,39 @@ extern const char* hak_symbols[];
   parameters (e.g. passing NULL to strdup), freeing a non-allocated memory 
   block (e.g. if using hak_malloc), and so on.
 
-  If 'expression' is true, report a standard error message and either return
-  with a predefined value, or exit with EXIT_FAILURE.
+  If 'expression' is true, report a specific 'error_message' and either return
+  with a given 'return_value', or exit with EXIT_FAILURE.
 
  */
 
+#define hak_verify_fatal(expression, error_code) do{_hak_set_error(hak_verify_ok); if (expression) {_hak_set_error(hak_verify_fault); fprintf (stderr, "%s%s: %s: %d: %s\n", hak_symbol_string(verify), hak_engine.program_name, __FILE__, __LINE__, hak_error_messages[error_code]); exit (EXIT_FAILURE);}}while(0)
 
-/* Libhak fatal. */
-#define hak_verify_fatal(expression, error_code) do{if (expression) {_hak_set_error(error_code); fprintf (stderr, "%s%s: %s: %d: %s\n", hak_symbol_string(verify), hak_engine.program_name, __FILE__, __LINE__, hak_error_messages[hak_engine.error]); exit (EXIT_FAILURE);}}while(0)
+#define hak_verify_nonfatal(expression, error_code, return_value) do{_hak_set_error(hak_verify_ok); if (expression) {_hak_set_error(hak_verify_fault); fprintf (stderr, "%s%s: %s: %d: %s\n", hak_symbol_string(verify), hak_engine.program_name, __FILE__, __LINE__, hak_error_messages[error_code]); return return_value;}}while(0)
 
-/* Libhak non-fatal. */
-#define hak_verify_nonfatal(expression, error_code, return_value) do{ if (expression) {_hak_set_error(error_code); fprintf (stderr, "%s%s: %s: %d: %s\n", hak_symbol_string(verify), hak_engine.program_name, __FILE__, __LINE__, hak_error_messages[hak_engine.error]); return return_value;}}while(0)
+/* Libhak error: fatal if HAK_FATAL is defined; non-fatal otherwise. */
 
-/* Libhak error: fatal if HAK_FATAL is defined; non-fatal oterwise. 
-   HAK_FATAL is true by default. */
 #if (HAK_VERIFY_FATAL != HAK_FALSE) 
-#define hak_verify(expression, error, value) hak_verify_fatal(expression, error)
+#define hak_verify(expression, code, value) hak_verify_fatal(expression, code)
 #else
-#define hak_verify(expression, error, value) hak_verify_nonfatal(expression, error, value)
+#define hak_verify(expression, code, value) hak_verify_nonfatal(expression, code, value)
 #endif	/* HAK_VERIFY_FATAL */
 
+
+
 /* 
- * Hak debug
+   hak_assert: conditions that should never happen. It's a bug.
+
+   If 'expression' is true, exhibit the asserted condition (the stringfied expression)
+   and a customized 'error_message', it non NULL.  
  */
 
-/* Libhak fatal. */
 #define hak_assert_fatal(expression, error_message) do{if (expression) {fprintf (stderr, "%s%s: %s: %d: %s %s\n", hak_symbol_string(assert), hak_engine.program_name, __FILE__, __LINE__, #expression, error_message ? error_message : ""); exit (EXIT_FAILURE);}}while(0)
 
-/* Libhak non-fatal. */
+
 #define hak_assert_nonfatal(expression, error_message) do{ if (expression) {fprintf (stderr, "%s%s: %s: %d: %s %s\n", hak_symbol_string(assert), hak_engine.program_name, __FILE__, __LINE__, #expression, error_message ? error_message : "");}}while(0)
 
-/* Libhak error: fatal if HAK_FATAL is defined; nonfatal oterwise.
-   HAK_FATAL is true by default. */
+/* Libhak assert: fatal if HAK_FATAL is defined; nonfatal otherwise. */
+   
 #if (HAK_ASSERT_FATAL != HAK_FALSE)
 #define hak_assert(expression, message) hak_assert_fatal(expression, message)
 #else
@@ -166,9 +181,25 @@ extern const char* hak_symbols[];
 #endif
 
 
+
+/* 
+  Libhak check: user customized checks.
+
+  If 'expression' is true, report a specific 'error_message' and either return
+  with a given 'return_value', or exit with EXIT_FAILURE.
+
+ */
+
+#define hak_check_fatal(expression, error_message) do{ if (expression) {fprintf (stderr, "%s%s: %s: %d: %s\n", hak_symbol_string(check), hak_engine.program_name, __FILE__, __LINE__, error_message ? _(error_message) : ""); exit (EXIT_FAILURE);}}while(0)
+
+#define hak_check_nonfatal(expression, error_message, return_value) do{ if (expression) {fprintf (stderr, "%s%s: %s: %d: %s\n", hak_symbol_string(check), hak_engine.program_name, __FILE__, __LINE__, error_message ? _(error_message): ""); return return_value;}}while(0)
+
+
 /* Libhak log: general log messages (variable arguments) */
 int hak_log (const char *, ...);
 
 const char *hak_replaced;
 
 #endif /* _HAK_MESSAGES_H */
+
+
