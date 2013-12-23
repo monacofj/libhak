@@ -58,12 +58,13 @@ CLEANFILES = doxyfile.stamp
 install-data-local: doxyfile.stamp 
 
 
-.PHONY clean-garbage:
-	rm -rf $(CUSTOM_GARBAGE)
 
 clean-local:
 	rm -rf $(top_srcdir)/doc/latex
 	rm -rf $(top_srcdir)/doc/man
 
+.PHONY clean-garbage:
+	rm -rf $(CUSTOM_GARBAGE)
 
 endif
+

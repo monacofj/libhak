@@ -31,8 +31,9 @@ EXTRA_DIST = $(top_srcdir)/replace/*.[ch]
 
 export CUSTOM_GARBAGE = *~ \#* *.o
 .PHONY clean-garbage:
+	rm -f $(CUSTOM_GARBAGE)
 	make -C src  clean-garbage
 	make -C test clean-garbage
 	make -C lib  clean-garbage
-	make -C doc  clean-garbage
+#	make -C doc  clean-garbage
 
