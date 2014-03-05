@@ -1,4 +1,4 @@
 libhak
 ======
 
-A C library with handy functions and no excuses for coding in another language.
+Simple handy tools for everyday work.
